@@ -4,6 +4,8 @@ from urllib.parse import urljoin, urlparse
 from flask import Flask, abort, render_template, send_from_directory, request, redirect, url_for, session
 from jinja2 import TemplateNotFound
 from werkzeug.security import check_password_hash, generate_password_hash
+from flask import Response
+
 
 app = Flask(
     __name__,
@@ -838,6 +840,31 @@ def not_found(error):
 # =========================
 # RUN APP
 # =========================
+@app.route("/sitemap.xml")
+def sitemap():
+    pages = [
+        "https://unitechnology.tech/",
+        "https://unitechnology.tech/courses",
+        "https://unitechnology.tech/korsati",
+    ]
+
+    xml = render_sitemap(pages)
+    return Response(xml, mimetype="application/xml")
+
+
+def render_sitemap(pages):
+    urls = ""
+    for page in pages:
+        urls += f"""
+   <url>
+      <loc>{page}</loc>
+   </url>
+"""
+    return f"""<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+{urls}
+</urlset>"""
+    
 if __name__ == "__main__":
     app.run(
         host="0.0.0.0",
