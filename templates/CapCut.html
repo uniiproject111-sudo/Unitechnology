@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>كورس CapCut</title>
+  <link rel="icon" type="image/png" href="{{ url_for('static', filename='images/website-logo.png') }}">
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/cssm.css') }}">
+  <style>
+    :root { --blue: #1B3FD8; --blue-dark: #1530B0; --white: #ffffff; --text-dark: #111; --gray-bg: #F4F6FB; --radius: 16px; --shadow: 0 4px 20px rgba(27,63,216,0.10); --shadow-hover: 0 8px 32px rgba(27,63,216,0.18); }
+    body { font-family: 'Cairo', sans-serif; background: var(--gray-bg); color: #111; direction: rtl; text-align: right; }
+    .nav-dots { display: none; }
+    .hero-img img { width: 690px; display: block; margin: 0 auto; }
+    .bc-im{ background-color: var(--blue); }
+    .section-title-wrap{ margin-top: 15px; margin-bottom: 15px; }
+    .section-title-wrap img { width: 365px; display: block; margin: 0 auto; }
+    .download-banner img { width: 520px; display: block; margin: 0 auto; }
+
+    .course-progress-card { max-width: 860px; margin: 30px auto; padding: 24px; background: #fff; border-radius: 16px; box-shadow: 0 4px 20px rgba(0,0,0,0.06); display: flex; flex-direction: column; gap: 14px; }
+    .progress-info { display: flex; justify-content: space-between; align-items: center; }
+    .progress-label { font-size: 16px; font-weight: 800; color: var(--blue); }
+    .progress-stats { font-size: 14px; font-weight: 700; color: #666; }
+    .progress-bar-bg { height: 12px; background: #f0f3ff; border-radius: 10px; overflow: hidden; }
+    .progress-bar-fill { height: 100%; background: var(--blue); width: 0%; transition: width 1s cubic-bezier(0.4, 0, 0.2, 1); }
+    .completion-badge { background: #dff7ea; color: #1e7e34; padding: 6px 14px; border-radius: 20px; font-size: 13px; font-weight: 800; display: inline-flex; align-items: center; gap: 6px; }
+
+    .lessons-wrap { max-width: 860px; margin: 0 auto; padding: 0 20px; display: flex; flex-direction: column; gap: 20px; }
+    .lesson-card { background: var(--blue); border-radius: 16px; overflow: hidden; box-shadow: 0 6px 24px rgba(26,59,191,0.3); width: 100%; }
+    .video-container { position: relative; width: 100%; padding-top: 56.25%; }
+    .video-container iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none; display: block; }
+    .video-actions { padding: 16px; text-align: center; background: rgba(255,255,255,0.1); }
+    .btn-complete { background: #fff; color: var(--blue); border: none; padding: 12px 24px; border-radius: 8px; font-family: 'Cairo', sans-serif; font-size: 14px; font-weight: 700; cursor: pointer; transition: background 0.2s, transform 0.15s; }
+    .btn-complete:hover:not([disabled]) { background: #e8eeff; transform: translateY(-1px); }
+    .btn-complete.completed { background: #27ae60; color: #fff; }
+    .btn-complete[disabled] { opacity: 0.75; cursor: not-allowed; }
+
+    #toast { position: fixed; bottom: 24px; left: 50%; transform: translateX(-50%) translateY(20px); background: rgba(17,17,17,0.93); color: #fff; border-radius: 14px; padding: 14px 24px; font-family: 'Cairo', sans-serif; font-size: 15px; font-weight: 600; opacity: 0; pointer-events: none; transition: opacity 0.3s ease, transform 0.3s ease; z-index: 9999; white-space: nowrap; box-shadow: 0 8px 32px rgba(0,0,0,0.22); }
+    #toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+    #toast.success { border-right: 4px solid #27ae60; }
+    #toast.error   { border-right: 4px solid #e74c3c; }
+
+    .quiz-section { max-width: 860px; margin: 34px auto 20px; padding: 0 20px; }
+    .quiz-header { text-align: center; margin-bottom: 16px; }
+    .quiz-title { display: inline-block; background: var(--blue); color: white; padding: 9px 36px; border-radius: 30px; font-size: 18px; font-weight: 900; }
+    .quiz-box { background: white; border-radius: 16px; padding: 28px 32px; box-shadow: 0 4px 20px rgba(26,59,191,0.08); }
+    .quiz-box h3 { color: var(--blue); font-size: 17px; font-weight: 900; margin-bottom: 18px; text-align: center; }
+    .quiz-rules { list-style: none; margin-bottom: 26px; }
+    .quiz-rules li { color: #333; font-size: 14px; font-weight: 600; padding: 8px 0; border-bottom: 1px solid #eef0fa; display: flex; align-items: flex-start; gap: 10px; }
+    .quiz-rules li span.num { color: var(--blue); font-weight: 900; min-width: 22px; }
+    .btn-start { display: block; width: 100%; background: var(--blue); color: white; border: none; padding: 15px; border-radius: 10px; font-family: 'Cairo', sans-serif; font-size: 17px; font-weight: 900; cursor: pointer; transition: background 0.2s; }
+        .btn-start:hover:not([disabled]) { background: var(--blue-dark); transform: translateY(-2px); }
+    .btn-start[disabled] { background: #ccc; cursor: not-allowed; opacity: 0.8; }
+
+    footer { background: var(--blue); padding: 28px 48px; text-align: center; }
+    .footer-logo { margin-bottom: 20px; }
+    .footer-logo img { height: 60px; width: auto; object-fit: contain; }
+    .footer-partners { display: flex; align-items: center; justify-content: center; gap: 50px; flex-wrap: wrap; }
+    .partner-badge { background: rgba(255,255,255,0.12); border: 1.5px solid rgba(255,255,255,0.25); border-radius: 28px; padding: 8px 18px; display: flex; align-items: center; gap: 8px; color: #fff; font-size: 13px; font-weight: 700; font-family: 'Cairo', sans-serif; }
+    .badge-icon { width: 30px; height: 30px; background: rgba(255,255,255,0.2); border-radius: 50%; display: flex; align-items: center; justify-content: center; overflow: hidden; flex-shrink: 0; }
+    .badge-icon img { width: 100%; height: 100%; object-fit: contain; }
+
+    @media (max-width: 768px) { .hero-img img { width: 100%; } .download-banner img { width: 95%; } .course-progress-card { margin: 20px 12px; padding: 18px; } .footer-partners { flex-direction: column; gap: 12px; } }
+  
+  /* ================================================
+     TOUR GUIDE STYLES
+     ================================================ */
+ #avatar {
+   position: fixed;
+   right: 30px;
+   bottom: 30px;
+   width: 85px;
+   height: 85px;
+   opacity: 0.9;
+   border-radius: 50%;
+   cursor: pointer;
+   transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+   z-index: 3000;
+   box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+   border: 4px solid #fff;
+   background: #fff;
+   object-fit: cover;
+   object-position: center;
+ }
+
+ #avatar:hover {
+   opacity: 1;
+   transform: scale(1.1) rotate(5deg);
+   box-shadow: 0 15px 35px rgba(27, 63, 216, 0.4);
+ }
+
+ #overlay {
+   position: fixed;
+   inset: 0;
+   background: rgba(0, 0, 0, 0.7);
+   display: none;
+   z-index: 2900;
+ }
+
+ .highlight-tour {
+   position: relative !important;
+   z-index: 2901 !important;
+    cursor: default !important;
+   box-shadow: 0 0 0 8px rgba(255, 255, 255, 0.4), 0 0 30px rgba(255, 255, 255, 0.6) !important;
+   border-radius: 12px !important;
+
+   transition: all 0.3s ease;
+ }
+ @keyframes fadeInSlide {
+   from {
+     opacity: 0;
+     transform: translateY(10px);
+   }
+
+   to {
+     opacity: 1;
+     transform: translateY(0);
+   }
+ }
+
+ #guideBox p {
+   margin: 0 0 18px;
+   font-size: 16px;
+   line-height: 1.6;
+   font-weight: 600;
+   color: #333;
+ }
+
+ #guideBox button {
+   padding: 10px 24px;
+   border: none;
+   background: var(--blue);
+   color: white;
+   border-radius: 12px;
+   cursor: pointer;
+   font-family: 'Cairo', sans-serif;
+   font-weight: 700;
+   font-size: 14px;
+   width: 100%;
+   transition: background 0.2s;
+ }
+
+ #guideBox button:hover {
+   background: var(--blue-dark);
+ }
+
+ .highlight-tour {
+   animation: tourPulse 1.5s infinite;
+ }
+
+ /* Force dropdown visibility during tour */
+ .dropdown-menu.tour-visible {
+   opacity: 1 !important;
+   visibility: visible !important;
+   transform: translateY(0) !important;
+   display: block !important;
+ }
+
+ @keyframes tourPulse {
+   0% {
+     transform: scale(1);
+   }
+
+   50% {
+     transform: scale(1.02);
+   }
+
+   100% {
+     transform: scale(1);
+   }
+ }
+
+ @media (max-width: 768px) {
+   #avatar {
+     width: 70px;
+     height: 70px;
+     right: 20px;
+     bottom: 20px;
+   }
+
+   #guideBox {
+     width: 240px;
+     padding: 18px;
+   }
+ }
+</style>
+</head>
+<body>
+  {% include 'navbar.html' %}
+  <!-- avatar -->
+  <img id="avatar" src="{{ url_for('static', filename='images/avater photo/eyad.jpg') }}">
+
+  <!-- overlay -->
+  <div id="overlay"></div>
+
+  <!-- guide box -->
+  <div id="guideBox">
+      <p id="guideText"></p>
+      <button onclick="nextStep()">التالي</button>
+  </div>
+
+  <div class="download-banner"><img src="{{ url_for('static', filename='images/بانر التحميل.png') }}"></div>
+  <div class="bc-im"><div class="hero-img"><img src="{{ url_for('static', filename='images/مرحبًا بك في كورس CapCut.png') }}"></div></div>
+  <div class="section-title-wrap"><img src="{{ url_for('static', filename='images/عنوان مقاطع الشرح.png') }}"></div>
+
+  {% if session.get('user_name') %}
+  <div class="course-progress-card">
+    <div class="progress-info">
+      <div class="progress-label">تقدمك في الكورس</div>
+      {% if progress.is_completed %}
+      <div class="completion-badge"><span>🎉 تم الانتهاء من الكورس!</span></div>
+      {% else %}
+      <div class="progress-stats"><span>{{ progress.completed_videos }}</span> من <span>{{ progress.total_videos }}</span> فيديو مكتمل</div>
+      {% endif %}
+    </div>
+    <div class="progress-bar-bg"><div class="progress-bar-fill" style="width: {{ progress.progress_percent }}%;"></div></div>
+    <div style="text-align: left; font-size: 13px; font-weight: 800; color: var(--blue);">{{ progress.progress_percent }}%</div>
+  </div>
+  {% endif %}
+
+  <div class="lessons-wrap">
+        {% set videos = [
+        {'id': 221, 'yt_id': 'UKiJEYTtTH4'},
+        {'id': 222, 'yt_id': '3RG4LBy4oug'},
+        {'id': 223, 'yt_id': '4wDd7IgE1ho'},
+        {'id': 224, 'yt_id': '6Akh4kAqVVY'}
+    ] %}
+    {% for v in videos %}
+    {% set is_done = video_completions.get(v.id, false) %}
+    <div class="lesson-card">
+      <div class="video-container"><iframe src="https://www.youtube.com/embed/{{ v.yt_id }}" frameborder="0" allowfullscreen></iframe></div>
+      <div class="video-actions">
+      <a href="https://youtu.be/{{ v.yt_id }}" target="_blank" style="display:inline-block; margin-bottom:12px; color:#fff; text-decoration:underline; font-size:14px; font-weight:600; background:rgba(0,0,0,0.2); padding:6px 12px; border-radius:8px;">🔗 إذا كان الفيديو غير متاح، اضغط هنا لمشاهدته على يوتيوب</a><br>
+      <button class="btn-complete {{ 'completed' if is_done else '' }}" data-video-id="{{ v.id }}" {% if is_done %}disabled{% endif %}>{{ 'تم إكمال الفيديو ✓' if is_done else 'أكمل الفيديو' }}</button></div>
+    </div>
+    {% endfor %}
+  </div>
+
+  <div class="quiz-section">
+    <div class="quiz-header"><div class="quiz-title">بعد إتمام الكورس "اختبر نفسك"</div></div>
+    <div class="quiz-box">
+      <h3>تعليمات ونظام الاختبار:</h3>
+      <ul class="quiz-rules">
+        <li><span class="num">1-</span><span>يشترط مشاهدة الكورس كاملاً للدخول على الاختبار.</span></li>
+        <li><span class="num">2-</span><span>يلزم الحصول على 50% على الأقل للنجاح في الاختبار.</span></li>
+        <li><span class="num">3-</span><span>عدد الاسئلة 10 اسئلة،  .</span></li>
+      </ul>
+            <button class="btn-start" id="quizBtn" {% if progress.progress_percent < 50 %}disabled{% endif %}>
+        {% if progress.progress_percent < 50 %}
+          🔒 شاهد 50% من الكورس لفتح الاختبار
+        {% else %}
+          ابدأ الاختبار
+        {% endif %}
+      </button>
+    </div>
+  </div>
+
+  <footer>
+    <div class="footer-logo"><img src="{{ url_for('static', filename='images/اللوجو ابيض.png') }}"></div>
+    <div class="footer-partners">
+      <div class="partner-badge"><div class="badge-icon"><img src="{{ url_for('static', filename='images/الجامعة.png') }}"></div>جامعة أسوان</div>
+      <div class="partner-badge"><div class="badge-icon"><img src="{{ url_for('static', filename='images/الكلية.png') }}"></div>كلية التربية النوعية</div>
+      <div class="partner-badge"><div class="badge-icon"><img src="{{ url_for('static', filename='images/لوجو القسم.png') }}"></div>قسم تكنولوجيا التعليم</div>
+    </div>
+  </footer>
+
+  <div id="toast"></div>
+  <script>
+    const examUrl = "{{ exam_url }}";
+    const toast = document.getElementById('toast');
+    function showToast(msg, type='success') { toast.textContent = msg; toast.className = 'show ' + type; setTimeout(() => toast.className = '', 3000); }
+    // Quiz button handler
+    const quizBtn = document.getElementById('quizBtn');
+    if (quizBtn) {
+      quizBtn.addEventListener('click', function() {
+        if (examUrl && examUrl.trim()) {
+          window.open(examUrl, '_blank');
+        } else {
+          showToast('❌ رابط الامتحان غير متوفر حالياً', 'error');
+        }
+      });
+    }
+    
+    document.querySelectorAll('.btn-complete:not([disabled])').forEach(btn => {
+      btn.addEventListener('click', async function() {
+        const videoId = this.dataset.videoId; this.disabled = true; this.textContent = 'جاري الحفظ...';
+        try {
+          const resp = await fetch(`/api/track-video/${videoId}`, { method: 'POST' });
+          const res = await resp.json();
+          if (resp.ok && res.status === 'success') {
+            this.classList.add('completed'); this.textContent = 'تم إكمال الفيديو ✓'; showToast('✅ تم تسجيل التقدم بنجاح!');
+            const pResp = await fetch(`/api/course-progress/capcut`);
+            const pData = await pResp.json();
+            if (pData && !pData.error) {
+              document.querySelector('.progress-bar-fill').style.width = pData.progress_percent + '%';
+              const quizBtn = document.getElementById('quizBtn');
+              if (quizBtn && pData.progress_percent >= 50) {
+                quizBtn.disabled = false;
+                quizBtn.innerHTML = 'ابدأ الاختبار';
+              }
+              const stats = document.querySelector('.progress-stats span'); if (stats) stats.textContent = pData.completed_videos;
+              const pPercent = document.querySelector('.course-progress-card div[style*="text-align: left"]'); if (pPercent) pPercent.textContent = pData.progress_percent + '%';
+              if (pData.is_completed) { document.querySelector('.progress-info').innerHTML = `<div class="progress-label">تقدمك في الكورس</div><div class="completion-badge"><span>🎉 تم الانتهاء من الكورس!</span></div>`; }
+            }
+          } else { this.disabled = false; this.textContent = 'أكمل الفيديو'; showToast('❌ حدث خطأ، حاول مرة أخرى.', 'error'); }
+        } catch (e) { this.disabled = false; showToast('❌ خطأ في الاتصال.', 'error'); }
+      });
+    });
+  </script>
+
+  <script>
+    const avatar = document.getElementById("avatar");
+    const overlay = document.getElementById("overlay");
+    const guideBox = document.getElementById("guideBox");
+    const guideText = document.getElementById("guideText");
+    const gifAvatar = "{{ url_for('static', filename='images/اياد.gif') }}";
+    const staticAvatar = avatar ? avatar.src : "{{ url_for('static', filename='images/avater photo/eyad.jpg') }}";
+
+    const steps = [
+      { text: "أهلاً! هذا الأفاتار سيرافقك في جولة سريعة.", element: document.getElementById("avatar") },
+      { text: "هذا هو القسم الترحيبي.", element: document.querySelector(".hero-img") },
+      { text: "هذا عنوان مقاطع الشرح.", element: document.querySelector(".section-title-wrap") },
+      { text: "هذا قسم الدروس حيث تبدأ التعلم.", element: document.querySelector(".lessons-wrap") },
+      { text: "بعد الانتهاء من مشاهدة الكورس بالكامل، يمكنك الانتقال إلى الاختبار لقياس مدى فهمك للمحتوى وتقييم مستواك. اقرأ التعليمات جيدًا قبل البدء.", element: document.querySelector(".quiz-section") }
+    ];
+
+    let currentStepIdx = 0;
+
+    if (avatar) {
+      avatar.onclick = () => {
+        currentStepIdx = 0;
+        avatar.src = gifAvatar + "?t=" + new Date().getTime();
+        showStep();
+      };
+    }
+
+    function closeTour() {
+      if (overlay) overlay.style.display = "none";
+      if (guideBox) guideBox.style.display = "none";
+      if (avatar) avatar.src = staticAvatar;
+      document.querySelectorAll(".highlight-tour").forEach(el => el.classList.remove("highlight-tour"));
+      document.querySelectorAll(".tour-visible").forEach(el => el.classList.remove("tour-visible"));
+    }
+
+    function showStep() {
+      while (currentStepIdx < steps.length && (!steps[currentStepIdx].element || !document.body.contains(steps[currentStepIdx].element))) {
+        currentStepIdx++;
+      }
+      const step = steps[currentStepIdx];
+      if (!step || !step.element) { closeTour(); return; }
+
+      if (overlay) overlay.style.display = "block";
+      if (guideBox) guideBox.style.display = "block";
+
+      document.querySelectorAll(".highlight-tour").forEach(el => el.classList.remove("highlight-tour"));
+      document.querySelectorAll(".tour-visible").forEach(el => el.classList.remove("tour-visible"));
+
+      step.element.classList.add("highlight-tour");
+
+      const dropdownMenu = step.element.closest && step.element.closest('.dropdown-menu');
+      if (dropdownMenu) dropdownMenu.classList.add('tour-visible');
+
+      step.element.scrollIntoView({ behavior: 'smooth', block: 'center' });
+
+      setTimeout(() => {
+        const rect = step.element.getBoundingClientRect();
+        let topPos = rect.bottom + window.scrollY + 15;
+        let leftPos = rect.left + window.scrollX;
+
+        if (topPos + 200 > document.documentElement.scrollHeight) {
+          topPos = rect.top + window.scrollY - 180;
+        }
+        if (leftPos + 250 > window.innerWidth) {
+          leftPos = window.innerWidth - 260;
+        }
+
+        if (guideBox) {
+          guideBox.style.top = topPos + "px";
+          guideBox.style.left = leftPos + "px";
+          guideText.innerText = step.text;
+        }
+      }, 300);
+    }
+
+    function nextStep() {
+      currentStepIdx++;
+      if (currentStepIdx >= steps.length) { closeTour(); return; }
+      showStep();
+    }
+
+    if (overlay) overlay.onclick = closeTour;
+  </script>
+</body>
+</html>

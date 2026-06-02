@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>تسجيل الدخول - UniTechnology</title>
+  <link rel="icon" type="image/png" href="{{ url_for('static', filename='images/website-logo.png') }}">
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&display=swap" rel="stylesheet">
+  <link href="{{ url_for('static', filename='css/cssm.css') }}" rel="stylesheet">
+  <style>
+    body { background: #F4F6FB; }
+    .auth-page { min-height: calc(100vh - 110px); display: flex; align-items: center; justify-content: center; padding: 40px 20px; }
+    .auth-card { width: min(640px, 100%); background: #fff; border-radius: 24px; box-shadow: 0 18px 50px rgba(0,0,0,0.08); padding: 40px; }
+    .auth-card h1 { font-size: 36px; color: #1B3FD8; margin-bottom: 14px; }
+    .auth-card p { color: #333; margin-bottom: 28px; line-height: 1.8; }
+    .auth-form { display: grid; gap: 18px; }
+    .auth-message { color: #d32f2f; font-weight: 700; margin-bottom: 18px; }
+    .auth-form label { display: block; font-weight: 700; margin-bottom: 8px; color: #1E1E1E; }
+    .auth-form input { width: 100%; padding: 14px 16px; border: 1px solid #D8D8D8; border-radius: 16px; font-size: 15px; }
+    .auth-form .form-actions { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 12px; }
+    .auth-form .btn-primary { background: #1B3FD8; color: #fff; border: none; border-radius: 16px; padding: 14px 24px; font-size: 15px; font-weight: 700; cursor: pointer; }
+    .auth-form a { color: #1B3FD8; font-weight: 700; text-decoration: none; }
+    .auth-form a:hover { text-decoration: underline; }
+    .auth-footer { margin-top: 26px; color: #555; font-size: 14px; }
+    .auth-footer a { color: #1B3FD8; }
+    @media (max-width: 760px) { .auth-card { padding: 28px 20px; } }
+  </style>
+</head>
+<body>
+  {% include 'navbar.html' %}
+
+  <main class="auth-page">
+    <section class="auth-card">
+      <h1>تسجيل الدخول</h1>
+      <p>ادخل بياناتك للدخول إلى حسابك والاستمرار في استخدام خدمات UniTechnology.</p>
+      {% if message %}
+      <p class="auth-message">{{ message }}</p>
+      {% endif %}
+      <form class="auth-form" method="post" action="{{ url_for('login') }}">
+        <input type="hidden" name="next" value="{{ next or '' }}">
+        <div>
+          <label for="email">البريد الإلكتروني</label>
+          <input id="email" name="email" type="email" placeholder="example@email.com" required>
+        </div>
+        <div>
+          <label for="password">كلمة المرور</label>
+          <input id="password" name="password" type="password" placeholder="********" required>
+        </div>
+        <div class="form-actions">
+          <button type="submit" class="btn-primary">تسجيل دخول</button>
+          <a href="{{ url_for('signup') }}">ليس لديك حساب؟ سجل الآن</a>
+        </div>
+      </form>
+      <div class="auth-footer">يمكنك استخدام نفس بيانات الحساب لتسجيل الدخول لاحقاً.</div>
+    </section>
+  </main>
+</body>
+</html>

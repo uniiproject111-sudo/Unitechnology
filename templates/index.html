@@ -1,0 +1,486 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>UniTechnology - منصة تكنولوجيا التعليم</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+  <link href="{{ url_for('static', filename='css/cssm.css') }}" rel="stylesheet">
+  <link rel="icon" type="image/png" href="{{ url_for('static', filename='images/website-logo.png') }}">
+</head>
+
+<body>
+
+  <!-- NAVBAR -->
+  {% include 'navbar.html' %}
+  <!-- avatar -->
+  <img id="avatar" src="{{ url_for('static', filename='images/avater photo/bara.jpg') }}">
+
+  <!-- overlay -->
+  <div id="overlay"></div>
+
+  <!-- guide box -->
+  <div id="guideBox">
+
+    <p id="guideText"></p>
+
+    <button onclick="nextStep()">التالي</button>
+
+  </div>
+  <!-- HERO -->
+  <section class="hero" id="heroSection">
+    <div class="hero-text">
+      <img src="{{ url_for('static', filename='images/نص الترحيب.png') }}">
+    </div>
+    <div class="hero-image">
+      <img src="{{ url_for('static', filename='images/homepage-boy.png') }}">
+    </div>
+
+
+  </section>
+
+  <!-- CATEGORIES BAR -->
+  <div class="categories-bar">
+    <div class="cat-item">التصميم الجرافيكي</div>
+    <div class="cat-item"><span class="star">✦</span></div>
+    <div class="cat-item">المونتاج</div>
+    <div class="cat-item"><span class="star">✦</span></div>
+    <div class="cat-item">البرمجة</div>
+    <div class="cat-item"><span class="star">✦</span></div>
+    <div class="cat-item">الذكاء الاصطناعي</div>
+  </div>
+
+  <!-- FACULTY SECTION -->
+  <section class="faculty-section" id="facultySection">
+    <div class="section-title-wrap">
+      <h2>اعضاء هيئة التدريس بقسم تكنولوجيا التعليم</h2>
+    </div>
+
+    <div class="slider-container">
+      <button class="slider-arrow next" onclick="slide(1)">&#8250;</button>
+      <button class="slider-arrow prev" onclick="slide(-1)">&#8249;</button>
+
+      <div class="slider-track" id="sliderTrack">
+
+  <!-- حلمي أبو موتة -->
+  <div class="faculty-card">
+    <div class="avatar-placeholder">
+      <img src="{{ url_for('static', filename='images/helmy.png') }}">
+    </div>
+    <div class="faculty-name">أ.د/ حلمي أبو موتة</div>
+    <div class="faculty-role">
+      أستاذ تكنولوجيا التعليم ورئيس القسم<br>
+      بكلية التربية النوعية جامعة أسوان
+    </div>
+  </div>
+
+  <!-- علاء محمود -->
+  <div class="faculty-card">
+    <div class="avatar-placeholder">
+      <img src="{{ url_for('static', filename='images/alaa.png') }}">
+    </div>
+    <div class="faculty-name">د/ علاء محمود عبد الحافظ</div>
+    <div class="faculty-role">
+      مدرس مساعد بقسم تكنولوجيا التعليم<br>
+      كلية التربية النوعية جامعة أسوان
+    </div>
+  </div>
+
+  <!-- إسلام محمد -->
+  <div class="faculty-card">
+    <div class="avatar-placeholder">
+      <img src="{{ url_for('static', filename='images/isla,.png') }}">
+    </div>
+    <div class="faculty-name">د/ إسلام محمد</div>
+    <div class="faculty-role">
+      مدرس بقسم تكنولوجيا التعليم<br>
+      كلية التربية النوعية جامعة أسوان
+    </div>
+  </div>
+
+  <!-- أحمد عطا الله -->
+  <div class="faculty-card">
+    <div class="avatar-placeholder">
+      <img src="{{ url_for('static', filename='images/ahmed.png') }}">
+    </div>
+    <div class="faculty-name">د/ أحمد عطا الله</div>
+    <div class="faculty-role">
+      مدرس بقسم تكنولوجيا التعليم<br>
+      كلية التربية النوعية جامعة أسوان
+    </div>
+  </div>
+
+  <!-- رجاء علي -->
+  <div class="faculty-card">
+    <div class="avatar-placeholder">
+      <img src="{{ url_for('static', filename='images/rgay.png') }}">
+    </div>
+    <div class="faculty-name">أ.د/ رجاء علي عبد العليم</div>
+    <div class="faculty-role">
+      أستاذ تكنولوجيا التعليم ووكيل كلية التربية النوعية<br>
+      لشئون خدمة المجتمع وتنمية البيئة جامعة أسوان
+    </div>
+  </div>
+
+  <!-- كرستينا عادل -->
+  <div class="faculty-card">
+    <div class="avatar-placeholder">
+      <img src="{{ url_for('static', filename='images/christen.png') }}">
+    </div>
+    <div class="faculty-name">د/ كرستينا عادل</div>
+    <div class="faculty-role">
+      مدرس مساعد بقسم تكنولوجيا التعليم<br>
+      كلية التربية النوعية جامعة أسوان
+    </div>
+  </div>
+
+  <!-- هدير خالد -->
+  <div class="faculty-card">
+    <div class="avatar-placeholder">
+      <img src="{{ url_for('static', filename='images/hader.png') }}">
+    </div>
+    <div class="faculty-name">د/ هدير خالد</div>
+    <div class="faculty-role">
+      مدرس مساعد بقسم تكنولوجيا التعليم<br>
+      كلية التربية النوعية جامعة أسوان
+    </div>
+  </div>
+
+  <!-- ضحى رمضان -->
+  <div class="faculty-card">
+    <div class="avatar-placeholder">
+      <img src="{{ url_for('static', filename='images/doha.png') }}">
+    </div>
+    <div class="faculty-name">د/ ضحى رمضان</div>
+    <div class="faculty-role">
+      معيد بكلية التربية النوعية<br>
+      جامعة أسوان
+    </div>
+  </div>
+
+  <!-- إسراء صلاح -->
+  <div class="faculty-card">
+    <div class="avatar-placeholder">
+      <img src="{{ url_for('static', filename='images/israa.png') }}">
+    </div>
+    <div class="faculty-name">د/ إسراء صلاح</div>
+    <div class="faculty-role">
+      معيد بكلية التربية النوعية<br>
+      جامعة أسوان
+    </div>
+  </div>
+
+  <!-- يوسف صلاح -->
+  <div class="faculty-card">
+    <div class="avatar-placeholder">
+      <img src="{{ url_for('static', filename='images/youssef.png') }}">
+    </div>
+    <div class="faculty-name">د/ يوسف صلاح</div>
+    <div class="faculty-role">
+      معيد بكلية التربية النوعية<br>
+      جامعة أسوان
+    </div>
+  </div>
+
+  <!-- وليد راضي -->
+  <div class="faculty-card">
+    <div class="avatar-placeholder">
+      <img src="{{ url_for('static', filename='images/waled.png') }}">
+    </div>
+    <div class="faculty-name">د/ وليد راضي</div>
+    <div class="faculty-role">
+      معيد بكلية التربية النوعية<br>
+      جامعة أسوان
+    </div>
+  </div>
+
+</div>
+
+    <div class="slider-dots" id="sliderDots">
+      <div class="slider-dot active" onclick="goTo(0)"></div>
+      <div class="slider-dot" onclick="goTo(1)"></div>
+      <div class="slider-dot" onclick="goTo(2)"></div>
+    </div>
+  </section>
+
+  <!-- VIDEO SECTION -->
+  <section class="video-section" id="videoSection">
+  <div class="section-title-wrap-home">
+    <h2>فيديو تعريفي عن الموقع وخدماته</h2>
+  </div>
+
+  <div class="video-wrapper">
+    <iframe
+      src="https://www.youtube.com/embed/k77vYlocS4k"
+      title="Video"
+      allowfullscreen>
+    </iframe>
+  </div>
+</section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-logo">
+      <img src="{{ url_for('static', filename='images/اللوجو ابيض.png') }}">
+    </div>
+
+    <div class="footer-partners">
+      <div class="partner-badge">
+        <div class="badge-icon"><img src="{{ url_for('static', filename='images/الجامعة.png') }}" alt="جامعة أسوان" />
+        </div>
+        جامعة أسوان
+      </div>
+      <div class="partner-badge">
+        <div class="badge-icon"><img src="{{ url_for('static', filename='images/الكلية.png') }}" alt="جامعة أسوان" />
+        </div>
+        كلية التربية النوعية
+      </div>
+      <div class="partner-badge">
+        <div class="badge-icon"><img src="{{ url_for('static', filename='images/لوجو القسم.png') }}"
+            alt="جامعة أسوان" /></div>
+        قسم تكنولوجيا التعليم
+      </div>
+    </div>
+
+
+  </footer>
+
+  <script>
+
+    // Play video on click
+    const videoWrapper = document.querySelector('.video-wrapper');
+    const playBtn = document.querySelector('.play-btn');
+    const introVideo = document.getElementById('introVideo');
+    if (videoWrapper && playBtn && introVideo) {
+      playBtn.onclick = function() {
+        playBtn.style.display = 'none';
+        introVideo.style.display = 'block';
+        introVideo.src += "&autoplay=1";
+      };
+    }
+
+
+    function toggleMenu() {
+      const menu = document.getElementById('mobileMenu');
+      const hamburger = document.getElementById('hamburger');
+      menu.classList.toggle('open');
+      menu.style.display = menu.classList.contains('open') ? 'flex' : 'none';
+
+      // Animate hamburger → X
+      const spans = hamburger.querySelectorAll('span');
+      if (menu.classList.contains('open')) {
+        spans[0].style.transform = 'translateY(7.5px) rotate(45deg)';
+        spans[1].style.opacity = '0';
+        spans[2].style.transform = 'translateY(-7.5px) rotate(-45deg)';
+      } else {
+        spans[0].style.transform = '';
+        spans[1].style.opacity = '1';
+        spans[2].style.transform = '';
+      }
+    }
+
+    // Close menu when clicking a link
+    document.querySelectorAll('.mobile-menu a').forEach(link => {
+      link.addEventListener('click', () => {
+        const menu = document.getElementById('mobileMenu');
+        menu.classList.remove('open');
+        menu.style.display = 'none';
+        const spans = document.querySelectorAll('.hamburger span');
+        spans.forEach(s => s.style.transform = s.style.opacity = '');
+        spans[1].style.opacity = '1';
+      });
+    });
+    const track = document.getElementById('sliderTrack');
+    const dots = document.querySelectorAll('.slider-dot');
+    const cards = track.children;
+
+    const visibleCards = 3;
+    const gap = 20;
+    let current = 0;
+    let autoPlay;
+
+    // عدد النقلات = عدد الكروت - الظاهر
+    const maxSlide = cards.length - visibleCards;
+
+    function getCardWidth() {
+      const card = cards[0];
+      return card.offsetWidth + gap;
+    }
+
+    function updateSlider() {
+      const move = current * getCardWidth();
+
+      track.style.transform = `translateX(${move}px)`;
+
+      // تحديث الدوتس
+      dots.forEach((dot, i) => {
+        dot.classList.toggle("active", i === current);
+      });
+
+      // إزالة التمييز من الكل
+      Array.from(cards).forEach(card => {
+        card.classList.remove("featured");
+      });
+
+      // تمييز الكارت الأوسط من الثلاثة الظاهرين
+      const middleCard = current + 1;
+      if (cards[middleCard]) {
+        cards[middleCard].classList.add("featured");
+      }
+    }
+
+    function slide(dir) {
+      current += dir;
+
+      // يرجع لأول 3 بعد آخر نقلة
+      if (current > maxSlide) current = 0;
+      if (current < 0) current = maxSlide;
+
+      updateSlider();
+    }
+
+    function goTo(index) {
+      current = index;
+      updateSlider();
+    }
+
+    function startAutoSlide() {
+      autoPlay = setInterval(() => {
+        slide(1); // يتحرك واحدة واحدة
+      }, 2500);
+    }
+
+    function stopAutoSlide() {
+      clearInterval(autoPlay);
+    }
+
+    // Hover يوقف
+    if (track) {
+      track.addEventListener("mouseenter", stopAutoSlide);
+      track.addEventListener("mouseleave", startAutoSlide);
+    }
+
+    // Responsive
+    window.addEventListener("resize", updateSlider);
+
+    // تشغيل أول مرة
+    if (track) {
+      updateSlider();
+      startAutoSlide();
+    }
+    /* ========== avatar ========== */
+    const avatar = document.getElementById("avatar");
+    const overlay = document.getElementById("overlay");
+    const guideBox = document.getElementById("guideBox");
+    const guideText = document.getElementById("guideText");
+
+    const gifAvatar = "{{ url_for('static', filename='images/براء.gif') }}";
+    const staticAvatar = "{{ url_for('static', filename='images/avater photo/bara.jpg') }}";
+    const steps = [
+      { text: "أهلاً! هذا الأفاتار سيرافقك في جولة سريعة.", element: document.getElementById("avatar") },
+      { text: "هذا هو القسم الترحيبي.", element: document.getElementById("heroSection") },
+      { text: "هنا يمكنك اختيار فئة موقعك التعليمية.", element: document.querySelector(".categories-bar") },
+      { text: "هذا قسم أعضاء هيئة التدريس الذين يقدمون المحتوى.", element: document.getElementById("facultySection") },
+      { text: "هنا يوجد الفيديو التعريفي عن الموقع وخدماته.", element: document.getElementById("videoSection") },
+      { text: "وهنا تذييل الصفحة يحتوي على روابط الدعم والمعلومات.", element: document.querySelector("footer") }
+    ];
+
+    let currentStepIdx = 0;
+
+    /* بدء الشرح */
+    if (avatar) {
+      avatar.onclick = () => {
+        currentStepIdx = 0;
+        // Restart GIF by appending timestamp
+        avatar.src = gifAvatar + "?t=" + new Date().getTime();
+        showStep();
+      };
+    }
+
+    function closeTour() {
+      if (overlay) overlay.style.display = "none";
+      if (guideBox) guideBox.style.display = "none";
+      if (avatar) avatar.src = staticAvatar;
+      document.querySelectorAll(".highlight-tour").forEach(el => el.classList.remove("highlight-tour"));
+      document.querySelectorAll(".tour-visible").forEach(el => el.classList.remove("tour-visible"));
+    }
+
+    /* عرض الخطوة (يتخطى العناصر المفقودة) */
+    function showStep() {
+      while (currentStepIdx < steps.length && (!steps[currentStepIdx].element || !document.body.contains(steps[currentStepIdx].element))) {
+        currentStepIdx++;
+      }
+      const step = steps[currentStepIdx];
+      if (!step || !step.element) { closeTour(); return; }
+
+      overlay.style.display = "block";
+      guideBox.style.display = "block";
+
+      /* إزالة التحديد القديم */
+      document.querySelectorAll(".highlight-tour").forEach(el => {
+        el.classList.remove("highlight-tour");
+      });
+      document.querySelectorAll(".tour-visible").forEach(el => {
+        el.classList.remove("tour-visible");
+      });
+
+      /* إضافة highlight */
+      step.element.classList.add("highlight-tour");
+
+      // Handle Dropdown visibility if target is inside a dropdown
+      const dropdownMenu = step.element.closest(".dropdown-menu");
+      if (dropdownMenu) {
+        dropdownMenu.classList.add("tour-visible");
+      }
+
+      // Scroll to element
+      step.element.scrollIntoView({ behavior: 'smooth', block: 'center' });
+
+      /* مكان العنصر */
+      setTimeout(() => {
+        const rect = step.element.getBoundingClientRect();
+
+        /* مكان صندوق الشرح */
+        let topPos = rect.bottom + window.scrollY + 15;
+        let leftPos = rect.left + window.scrollX;
+
+        // Adjust if too close to bottom
+        if (topPos + 200 > document.documentElement.scrollHeight) {
+          topPos = rect.top + window.scrollY - 180;
+        }
+
+        // Adjust if too far right
+        if (leftPos + 250 > window.innerWidth) {
+          leftPos = window.innerWidth - 260;
+        }
+
+        guideBox.style.top = topPos + "px";
+        guideBox.style.left = leftPos + "px";
+        guideText.innerText = step.text;
+      }, 300);
+    }
+
+    /* التالي */
+    function nextStep() {
+      currentStepIdx++;
+
+      /* نهاية الخطوات */
+      if (currentStepIdx >= steps.length) {
+        closeTour();
+        return;
+      }
+
+      showStep();
+    }
+
+    // Close on overlay click
+    if (overlay) {
+      overlay.onclick = closeTour;
+    }
+
+
+  </script>
+</body>
+
+</html>

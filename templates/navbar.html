@@ -1,0 +1,113 @@
+{% set current_page = request.view_args.get('page_name') if request.view_args else None %}
+{% set primary_pages = ['index', 'korsati', 'courses', 'ai-tools-page', 'contactus', 'aboutus', 'downloadpage'] %}
+{% set active_home = request.endpoint == 'home' or current_page == 'index' %}
+{% set active_korsati = request.endpoint == 'korsati_page_alias' or current_page in ['korsati', 'coursespage_mobile'] %}
+{% set active_courses = request.endpoint == 'courses_page_alias' or current_page == 'courses' or (request.endpoint in ['html_page', 'page'] and current_page not in primary_pages) %}
+{% set active_ai = current_page == 'ai-tools-page' %}
+{% set active_contactus = current_page == 'contactus' %}
+{% set active_aboutus = current_page == 'aboutus' %}
+{% set active_downloadpage = current_page == 'downloadpage' %}
+<nav>
+  <div class="nav-logo">
+    <img src="{{ url_for('static', filename='images/اللوجو الوان.png') }}">
+  </div>
+
+  <ul class="nav-links">
+    <li><a id="homeBtn" href="{{ url_for('home') }}" class="{{ 'active' if active_home else '' }}">الصفحة الرئيسية</a></li>
+    <li><a id="korsatiBtn" href="{{ url_for('page', page_name='korsati') }}" class="{{ 'active' if active_korsati else '' }}">كورساتي</a></li>
+    <li><a id="coursesBtn" href="{{ url_for('page', page_name='courses') }}" class="{{ 'active' if active_courses else '' }}">كورسات</a></li>
+    <li><a id="aiToolsBtn" href="{{ url_for('page', page_name='ai-tools-page') }}" class="{{ 'active' if active_ai else '' }}">أدوات الذكاء الاصطناعي</a></li>
+    <li class="dropdown">
+            <a id="moreBtn" href="#">المزيد</a>
+            <ul class="dropdown-menu">
+                <li><a id="contactBtn" href="{{ url_for('page', page_name='contactus') }}" class="{{ 'active' if active_contactus else '' }}">تواصل معنا</a></li>
+                <li><a id="aboutBtn" href="{{ url_for('page', page_name='aboutus') }}" class="{{ 'active' if active_aboutus else '' }}">نبذه عنا</a></li>
+                <li><a id="downloadpageBtn" href="{{ url_for('page', page_name='downloadpage') }}" class="{{ 'active' if active_downloadpage else '' }}">مركز التحميل</a></li>
+            </ul>
+        </li>
+  </ul>
+
+  <div class="nav-actions">
+    <!-- Hamburger: mobile only -->
+    <div class="hamburger" id="hamburger" onclick="toggleMenu()">
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
+    <div class="nav-dots">
+      <span></span><span></span><span></span>
+    </div>
+    {% if user_name %}
+      <span class="nav-user">مرحباً، {{ user_name }}</span>
+      <a class="btn-register" href="{{ url_for('logout') }}">تسجيل خروج</a>
+    {% else %}
+      <a class="nav-link" href="{{ url_for('login') }}">تسجيل دخول</a>
+      <a class="btn-register" href="{{ url_for('signup') }}">إنشاء حساب</a>
+    {% endif %}
+  </div>
+</nav>
+<!-- Mobile Dropdown Menu -->
+<div class="mobile-menu" id="mobileMenu">
+        <a href="{{ url_for('home') }}" class="{{ 'active' if active_home else '' }}">الصفحة الرئيسية</a>
+        <a href="{{ url_for('page', page_name='korsati') }}" class="{{ 'active' if active_korsati else '' }}">كورساتي</a>
+        <a href="{{ url_for('page', page_name='courses') }}" class="{{ 'active' if active_courses else '' }}">كورسات</a>
+        <a href="{{ url_for('page', page_name='ai-tools-page') }}" class="{{ 'active' if active_ai else '' }}">أدوات الذكاء الاصطناعي</a>
+        <a href="{{ url_for('page', page_name='contactus') }}" class="{{ 'active' if active_contactus else '' }}">تواصل معنا</a>
+        <a href="{{ url_for('login') }}">تسجيل دخول</a>
+        <a href="{{ url_for('signup') }}">إنشاء حساب</a>
+        <a href="{{ url_for('page', page_name='aboutus') }}" class="{{ 'active' if active_aboutus else '' }}">نبذه عنا</a>
+        <a href="{{ url_for('page', page_name='downloadpage') }}" class="{{ 'active' if active_downloadpage else '' }}">مركز التحميل</a>
+</div>
+
+<script>
+  if (typeof toggleMenu !== 'function') {
+      window.toggleMenu = function() {
+        const menu = document.getElementById('mobileMenu');
+        const hamburger = document.getElementById('hamburger');
+        if (!menu || !hamburger) return;
+        
+        menu.classList.toggle('open');
+        menu.style.display = menu.classList.contains('open') ? 'flex' : 'none';
+
+        // Animate hamburger → X
+        const spans = hamburger.querySelectorAll('span');
+        if (spans.length >= 3) {
+            if (menu.classList.contains('open')) {
+              spans[0].style.transform = 'translateY(7.5px) rotate(45deg)';
+              spans[1].style.opacity = '0';
+              spans[2].style.transform = 'translateY(-7.5px) rotate(-45deg)';
+            } else {
+              spans[0].style.transform = '';
+              spans[1].style.opacity = '1';
+              spans[2].style.transform = '';
+            }
+        }
+      }
+
+      // Close menu when clicking a link
+      document.addEventListener('DOMContentLoaded', () => {
+          document.querySelectorAll('.mobile-menu a').forEach(link => {
+            link.addEventListener('click', () => {
+              const menu = document.getElementById('mobileMenu');
+              const hamburger = document.getElementById('hamburger');
+              if (menu) {
+                  menu.classList.remove('open');
+                  menu.style.display = 'none';
+              }
+              if (hamburger) {
+                  const spans = hamburger.querySelectorAll('span');
+                  spans.forEach(s => {
+                      s.style.transform = '';
+                      s.style.opacity = '';
+                  });
+                  if (spans.length >= 2) spans[1].style.opacity = '1';
+              }
+            });
+          });
+      });\r
+  }\r
+</script>
+<!-- chatbot button (global - appears on all pages) -->
+<a id="chatbotBtn" href="https://www.coze.com/store/agent/7637570149507350533?bot_id=true" target="_blank">
+  <img src="{{ url_for('static', filename='images/chatbot.jpeg') }}" alt="chatbot">
+</a>

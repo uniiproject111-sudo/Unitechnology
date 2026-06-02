@@ -1,0 +1,975 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>أدوات الذكاء الاصطناعي - UniTechnology</title>
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&display=swap" rel="stylesheet">
+<link rel="icon" type="image/png" href="{{ url_for('static', filename='images/website-logo.png') }}">
+<link href="{{ url_for('static', filename='css/cssm.css') }}" rel="stylesheet">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  :root {
+    --blue: #1B3FD8;
+    --blue-dark: #1530B0;
+    --blue-light: #2B52F5;
+    --gold: #F5C518;
+    --white: #ffffff;
+    --gray-bg: #F4F6FB;
+    --text-dark: #111;
+  }
+  body {
+    font-family: 'Cairo', sans-serif;
+    background: #fff;
+    color: #111;
+    direction: rtl;
+  }
+
+  /* NAVBAR */
+ /* ========== NAVBAR ========== */
+ nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 10px 16px;
+      background: #fff;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.07);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .nav-logo img {
+      width: 65px;
+      height: 55px;
+      object-fit: contain;
+    }
+
+    /* Desktop nav links - hidden on mobile */
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 32px;
+      list-style: none;
+    }
+
+    .nav-links a {
+      text-decoration: none;
+      color: var(--text-dark);
+      font-weight: 700;
+      font-size: 15px;
+      transition: color 0.2s;
+    }
+
+    .nav-links a:hover { color: var(--blue); }
+    .nav-links a.active { color: var(--blue); border-bottom: 2px solid var(--blue); padding-bottom: 2px; }
+
+    .nav-actions {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .btn-register {
+      background: var(--blue);
+      color: #fff;
+      border: none;
+      padding: 8px 20px;
+      border-radius: 25px;
+      font-family: 'Cairo', sans-serif;
+      font-size: 14px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+    .btn-register:hover { background: var(--blue-dark); }
+      .dropdown {
+    position: relative;
+}
+
+.dropdown-menu {
+    position: absolute;
+    top: 100%;
+    right: 0;
+    background: #fff;
+    list-style: none;
+    padding: 10px 0;
+    margin: 0;
+    width: 180px;
+    border-radius: 10px;
+    box-shadow: 0 6px 20px rgba(0,0,0,0.08);
+    
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(10px);
+    transition: 0.3s;
+}
+
+.dropdown-menu li {
+    padding: 8px 16px;
+}
+
+.dropdown-menu a {
+    color: #333;
+    font-weight: 600;
+    display: block;
+}
+
+.dropdown-menu a:hover {
+    color: var(--blue);
+}
+
+/* Show on hover */
+.dropdown:hover .dropdown-menu {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+ 
+  
+  /* Hamburger */
+  .hamburger {
+    display: none;
+    flex-direction: column;
+    gap: 5px;
+    cursor: pointer;
+    padding: 6px;
+    border-radius: 6px;
+    background: #f0f0f0;
+  }
+  .hamburger span {
+    width: 22px;
+    height: 2.5px;
+    background: #444;
+    border-radius: 2px;
+    display: block;
+    transition: all 0.3s;
+  }
+ 
+  /* Mobile Menu */
+  .mobile-menu {
+    display: none;
+    flex-direction: column;
+    background: #fff;
+    border-bottom: 2px solid #eee;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.35s ease, padding 0.3s;
+  }
+  .mobile-menu.open {
+    max-height: 900px;
+    overflow-y: auto;
+    padding: 8px 0 16px;
+  }
+  .mobile-menu a {
+    text-decoration: none;
+    color: var(--text-dark);
+    font-weight: 700;
+    font-size: 15px;
+    padding: 12px 20px;
+    border-bottom: 1px solid #f0f0f0;
+    display: block;
+    transition: background 0.2s, color 0.2s;
+    font-family: 'Cairo', sans-serif;
+  }
+  .mobile-menu a:last-child { border-bottom: none; }
+  .mobile-menu a:hover, .mobile-menu a.active {
+    color: var(--blue);
+    background: #f4f6fb;
+  }
+ 
+
+  /* HERO */
+  .hero {
+
+    min-height: 420px;
+    display: flex;
+    align-items: center;
+    position: relative;
+    overflow: hidden;
+    padding: 40px 150px 0;
+    gap: 180px;
+  }
+  .hero-text img {
+    width: 600px;
+    height: 400px;
+    object-fit: contain;
+  }
+ 
+  .hero-image {
+    flex: 0 0 340px;
+    text-align: center;
+    align-self: flex-end;
+    z-index: 2;
+  }
+ 
+  .hero-image img {
+    width: 420px;
+    padding-bottom: 30px;
+    object-fit: cover;
+    border-radius: 16px 16px 0 0;
+  }
+  .blue-tape {
+  position: relative;
+  width: 100%;
+  height: 60px;
+  background: linear-gradient(90deg, #2d5bff, #1B3FD8);
+
+  margin-top: -40px; /* ده اللي يخليه يدخل فوق الصور */
+  z-index: 10;
+}
+.blue-tape-un{
+  position: relative;
+  width: 100%;
+  height: 60px;
+  background: linear-gradient(90deg, #2d5bff, #1B3FD8);
+}
+
+  /* SECTION TITLE */
+  .section-title{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .section-title img {
+    width: 450px;
+    height: 70px;
+
+  }
+  .section-title-four{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .section-title-four img {
+    width: 600px;
+    height: 70px;
+
+  }
+
+  /* TOOLS GRID */
+.cards-con {
+  display: flex;
+  justify-content: center;
+}
+
+/* الجريد */
+.tools-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 550px);
+  justify-content: center;
+  gap: 20px;
+  padding: 16px 14px 30px;
+}
+
+/* الكارد */
+.tool-card {
+  width: 550px;
+  height: 450px;
+  background: var(--blue);
+  border-radius: 16px;
+  padding: 20px 14px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 10px;
+  box-shadow: 0 4px 20px rgba(37,99,235,0.25);
+}
+
+/* الصورة */
+.tool-logo img {
+  width: 140px;
+  height: 140px;
+  object-fit: contain;
+}
+
+/* الاسم */
+.tool-name {
+  font-size: 25px;
+  font-weight: 900;
+  color: #fff;
+}
+
+/* الوصف */
+.tool-desc {
+  text-align: justify;
+  font-size: 18px;
+  color: rgba(255,255,255,0.88);
+  line-height: 1.7;
+  flex: 1;
+}
+
+/* الزرار */
+.tool-btn {
+  display: block;
+  text-decoration: none;
+  background: #fff;
+  color: #1a2a8e;
+  border: none;
+  border-radius: 8px;
+  padding: 10px 0;
+  width: 100%;
+  font-size: 18px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.tool-btn:hover {
+  background: #dce8ff;
+}
+  /* SVG logos */
+
+
+   /* ========== FOOTER ========== */
+  footer {
+    background: var(--blue);
+    padding: 28px 48px;
+    text-align: center;
+  }
+ 
+  .footer-logo { margin-bottom: 20px; }
+ 
+  .footer-logo img {
+    height: 60px;
+    width: auto;
+    object-fit: contain;
+  }
+ 
+  .footer-logo-fallback { display: inline-block; margin-bottom: 6px; }
+  .footer-logo-fallback svg { width: 52px; height: 52px; }
+ 
+  .footer-logo-text {
+    color: #fff;
+    font-size: 13px;
+    font-weight: 700;
+    font-family: 'Cairo', sans-serif;
+  }
+ 
+  .footer-partners {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 50px;
+    flex-wrap: wrap;
+  }
+ 
+  .partner-badge {
+    background: rgba(255,255,255,0.12);
+    border: 1.5px solid rgba(255,255,255,0.25);
+    border-radius: 28px;
+    padding: 8px 18px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: #fff;
+    font-size: 13px;
+    font-weight: 700;
+    font-family: 'Cairo', sans-serif;
+  }
+ 
+  .badge-icon {
+    width: 30px;
+    height: 30px;
+    background: rgba(255,255,255,0.2);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    flex-shrink: 0;
+  }
+ 
+  .badge-icon img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+  }
+ 
+  .badge-icon-text { font-size: 14px; color: #fff; }
+   @media (max-width: 768px) {
+ 
+    /* --- NAVBAR --- */
+    nav { padding: 10px 14px; }
+ 
+    .nav-logo img { width: 60px; height: 52px; }
+ 
+    .nav-links { display: none; }
+    .nav-dots { display: none; }
+ 
+    .hamburger { display: flex; }
+ 
+    .btn-register { padding: 7px 16px; font-size: 13px; }
+ 
+    /* --- HERO --- */
+    .hero {
+      flex-direction: column;
+      min-height: unset;
+      padding: 24px 16px 0;
+      gap: 20px;
+      align-items: center;
+      text-align: center;
+    }
+    
+ 
+    .hero-text img {
+      width: 100%;
+      height: auto;
+      max-width: 320px;
+    }
+ 
+    .hero-badge { font-size: 16px; padding: 8px 16px; }
+    .hero-sub { font-size: 15px; }
+ 
+    .hero-image {
+      flex: none;
+      width: 100%;
+      align-self: center;
+    }
+ 
+    .hero-image img {
+      width: 100%;
+      max-width: 280px;
+      border-radius: 12px 12px 0 0;
+    }
+      .tools-grid {
+    grid-template-columns: 1fr; /* عمود واحد */
+    gap: 16px;
+  }
+
+  .tool-card {
+    width: 100%;
+    min-height: auto;
+    padding: 16px;
+  }
+
+  .tool-name {
+    font-size: 20px;
+  }
+
+  .tool-desc {
+    font-size: 15px;
+    text-align: center;
+  }
+
+  .tool-btn {
+    font-size: 16px;
+    padding: 10px;
+  }
+
+  .section-title img {
+    width: 90%;
+    height: auto;
+  }
+
+  .section-title-four img {
+    width: 95%;
+    height: auto;
+  }
+
+    /* --- FOOTER --- */
+    footer { padding: 20px 14px; }
+ 
+    .footer-logo img { height: 48px; }
+ 
+    .footer-partners {
+      gap: 10px;
+      flex-direction: column;
+      align-items: center;
+    }
+ 
+    .partner-badge {
+      font-size: 13px;
+      padding: 8px 16px;
+      width: 100%;
+      max-width: 240px;
+      justify-content: center;
+    }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAVBAR -->
+{% include 'navbar.html' %}
+
+<!-- avatar -->
+<img id="avatar" src="{{ url_for('static', filename='images/avater photo/mena.jpg') }}">
+
+<!-- overlay -->
+<div id="overlay"></div>
+
+<!-- guide box -->
+<div id="guideBox">
+    <p id="guideText"></p>
+    <button onclick="nextStep()">التالي</button>
+</div>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-text">
+    <img src="{{ url_for('static', filename='images/مرحبًا بك في صفحة أدوات الذكاء الاصطناعي.png') }}">
+    
+  </div>
+  <div class="hero-image">
+    <img src="{{ url_for('static', filename='images/الولد.png') }}">
+  </div>
+</section>
+<div class="blue-tape"></div>
+<!-- <div class="blue-tape">""</div> -->
+<!-- SECTION TITLE -->
+<div class="section-title">
+  <img src="{{ url_for('static', filename='images/أولًا أدوات لإنتاج الصور/أولًا أدوات لإنتاج الصور.png') }}">
+</div>
+
+<!-- TOOLS GRID -->
+ <section class="crads-con">
+<div class="tools-grid">
+
+  <!-- Ideogram -->
+  <div class="tool-card">
+    <div class="tool-logo icon-ideogram">
+      <img src="{{ url_for('static', filename='images/أولًا أدوات لإنتاج الصور/أداة  Ideogram AI.png') }}">
+      <div class="tool-name">أداة Ideogram AI</div>
+    </div>
+    <div class="tool-desc">أداة متخصصة في إنشاء صور تحتوي على نصوص دقيقة داخل التصميم، وتُستخدم في تصميم البوسترات والإنفوجرافيك التعليمية.</div>
+    <a href="https://ideogram.ai/" target="_blank" class="tool-btn">الانتقال الى الاداة</a>
+  </div>
+
+  <!-- Bing Image Creator -->
+  <div class="tool-card">
+    <div class="tool-logo icon-bing">
+      <img src="{{ url_for('static', filename='images/أولًا أدوات لإنتاج الصور/أداة  Bing  Image  Creator.png') }}">
+    </div>
+    <div class="tool-name">أداة Bing Image Creator</div>
+    <div class="tool-desc">أداة ذكاء اصطناعي تقوم بإنشاء صور من خلال كتابة وصف نصي (Prompt)، وتتميز بسهولة الاستخدام وإنتاج صور عالية الجودة مناسبة للأغراض التعليمية.</div>
+    <a href="https://www.bing.com/images/create" target="_blank" class="tool-btn">الانتقال الى الاداة</a>
+  </div>
+
+  <!-- Leonardo AI -->
+  <div class="tool-card">
+    <div class="tool-logo icon-leonardo">
+  <img src="{{ url_for('static', filename='images/أولًا أدوات لإنتاج الصور/أداة Leonardo AI.png') }}">
+    </div>
+    <div class="tool-name">أداة Leonardo AI</div>
+    <div class="tool-desc">منصة احترافية لإنشاء الصور باستخدام الذكاء الاصطناعي، توفر تحكمًا متقدمًا في تفاصيل الصورة وجودتها.</div>
+    <a href="https://leonardo.ai/" target="_blank" class="tool-btn">الانتقال الى الاداة</a>
+  </div>
+
+  <!-- Canva -->
+  <div class="tool-card">
+    <div class="tool-logo icon-canva">
+        <img src="{{ url_for('static', filename='images/أولًا أدوات لإنتاج الصور/أداة  Canva.png') }}">
+    </div>
+    <div class="tool-name">أداة Canva</div>
+    <div class="tool-desc">منصة تصميم متكاملة تتيح إنشاء صور وعروض تقديمية باستخدام أدوات سهلة وقوالب جاهزة، مع دعم تقنيات الذكاء الاصطناعي.</div>
+    <a href="https://www.canva.com/" target="_blank" class="tool-btn">الانتقال الى الاداة</a>
+  </div>
+
+  <!-- Dream by WOMBO -->
+  <div class="tool-card">
+    <div class="tool-logo icon-wombo">
+      <img src="{{ url_for('static', filename='images/أولًا أدوات لإنتاج الصور/أداة Dream by WOMBO.png') }}">
+    </div>
+    <div class="tool-name">أداة Dream by WOMBO</div>
+    <div class="tool-desc">أداة تقوم بإنشاء صور فنية إبداعية من وصف نصي، ويتميز بأساليب فنية متنوعة وجذابة.</div>
+    <a href="https://dream.ai/" target="_blank" class="tool-btn">الانتقال الى الاداة</a>
+  </div>
+
+  <!-- Playground AI -->
+  <div class="tool-card">
+    <div class="tool-logo icon-playground">
+     <img src="{{ url_for('static', filename='images/أولًا أدوات لإنتاج الصور/أداة Playground AI.png') }}">
+    </div>
+    <div class="tool-name">أداة Playground AI</div>
+    <div class="tool-desc">أداة تجمع بين إنشاء الصور وتعديلها باستخدام الذكاء الاصطناعي، وتتناسب مع المبتدئين في مجال التصميم.</div>
+    <a href="https://playgroundai.com/" target="_blank" class="tool-btn">الانتقال الى الاداة</a>
+  </div>
+
+</div>
+</section>
+<div class="blue-tape-un"></div>
+<!-- <div class="blue-tape">""</div> -->
+<!-- SECTION TITLE -->
+<div class="section-title">
+  <img src="{{ url_for('static', filename='images/ثانيًا أدوات إنتاج الفيديو/ثانيًا أدوات إنتاج الفيديو.png') }}">
+</div>
+
+<!-- TOOLS GRID -->
+ <section class="crads-con">
+<div class="tools-grid">
+
+  <!-- Ideogram -->
+  <div class="tool-card">
+    <div class="tool-logo icon-ideogram">
+      <img src="{{ url_for('static', filename='images/ثانيًا أدوات إنتاج الفيديو/أداة  Qwen AI.png') }}">
+      <div class="tool-name">أداة  Qwen AI</div>
+    </div>
+    <div class="tool-desc">أداة تعتمد على الذكاء الاصطناعــــــــي لإنشاء فيديوهات قصيرة من النصوص، وتتميز بسهولة الاستخــدام وسـرعــة الإنتــــاج.
+</div>
+    <a href="https://chat.qwenlm.ai/" target="_blank" class="tool-btn">الانتقال الى الاداة</a>
+  </div>
+
+  <!-- Bing Image Creator -->
+  <div class="tool-card">
+    <div class="tool-logo icon-bing">
+      <img src="{{ url_for('static', filename='images/ثانيًا أدوات إنتاج الفيديو/أداة  Runway ML.png') }}">
+    </div>
+    <div class="tool-name">أداة Runway ML</div>
+    <div class="tool-desc"> منصة متقدمة لإنشاء وتحرير الفيديوهات باستخدام الذكاء الاصطناعــي، تُستخـــدم في إنتاج فيديوهات تعليمية احترافيـة.</div>
+    <a href="https://runwayml.com/" target="_blank" class="tool-btn">الانتقال الى الاداة</a>
+  </div>
+
+  <!-- Leonardo AI -->
+  <div class="tool-card">
+    <div class="tool-logo icon-leonardo">
+  <img src="{{ url_for('static', filename='images/ثانيًا أدوات إنتاج الفيديو/أداة  Pika Labs.png') }}">
+    </div>
+    <div class="tool-name">أداة Pika Labs</div>
+    <div class="tool-desc">أداة تقوم بتحويـــل النصــــــوص إلــــــى فيديوهات قصيرة باستخدام تقنيـــات الذكــاء الاصطناعــــي بطريقــة سهلـة وسريعــة.</div>
+    <a href="https://pika.art/" target="_blank" class="tool-btn">الانتقال الى الاداة</a>
+  </div>
+
+  <!-- Canva -->
+  <div class="tool-card">
+    <div class="tool-logo icon-canva">
+        <img src="{{ url_for('static', filename='images/ثانيًا أدوات إنتاج الفيديو/أداة CapCut.png') }}">
+    </div>
+    <div class="tool-name">أداة CapCut</div>
+    <div class="tool-desc">تطبيق مجاني لتحرير الفيديو يحتوي على أدوات ذكاء اصطناعي تساعـد في إنشـــاء فيديوهات تعليمية بشكل بسيط. </div>
+    <a href="https://www.capcut.com/" target="_blank" class="tool-btn">الانتقال الى الاداة</a>
+  </div>
+
+  <!-- Dream by WOMBO -->
+  <div class="tool-card">
+    <div class="tool-logo icon-wombo">
+      <img src="{{ url_for('static', filename='images/ثانيًا أدوات إنتاج الفيديو/أداة Canva.png') }}">
+    </div>
+    <div class="tool-name">أداة Canva</div>
+    <div class="tool-desc">يوفر إمكانية إنشاء فيديوهـــات تعليميــة باستخدام قوالب جاهزة مع إضافة عناصــر مرئية وصوتية بسهولة.
+</div>
+    <a href="https://www.canva.com/" target="_blank" class="tool-btn">الانتقال الى الاداة</a>
+  </div>
+
+  <!-- Playground AI -->
+  <div class="tool-card">
+    <div class="tool-logo icon-playground">
+     <img src="{{ url_for('static', filename='images/ثانيًا أدوات إنتاج الفيديو/أداة Luma AI Dream Machine.png') }}">
+    </div>
+    <div class="tool-name">أداة Luma AI Dream Machine</div>
+    <div class="tool-desc">أداة حديثة لإنشـــاء فيديوهــــات واقعيــــة باستخدام الذكـاء الاصطناعـــي من خــــلال وصف نصي.</div>
+    <a href="https://lumalabs.ai/dream-machine" target="_blank" class="tool-btn">الانتقال الى الاداة</a>
+  </div>
+
+</div>
+</section>
+<div class="blue-tape-un"></div>
+<!-- <div class="blue-tape">""</div> -->
+<!-- SECTION TITLE -->
+<div class="section-title">
+  <img src="{{ url_for('static', filename='images/ثالثًا أدوات إنتاج الصوت/ثالثًا أدوات إنتاج الصوت.png') }}">
+</div>
+
+<!-- TOOLS GRID -->
+ <section class="crads-con">
+<div class="tools-grid">
+
+  <!-- Ideogram -->
+  <div class="tool-card">
+    <div class="tool-logo icon-ideogram">
+      <img src="{{ url_for('static', filename='images/ثالثًا أدوات إنتاج الصوت/أداة  Natural Reader.png') }}">
+      <div class="tool-name">أداة  Natural Reader</div>
+    </div>
+    <div class="tool-desc">أداة لتحويل النصوص إلى صوت منطــــوق بجودة عالية، تُستخدم في التعليــــــــــــق الصوتي للفيديوهات التعليمية.</div>
+    <a href="https://www.naturalreaders.com/" target="_blank" class="tool-btn">الانتقال الى الاداة</a>
+  </div>
+
+  <!-- Bing Image Creator -->
+  <div class="tool-card">
+    <div class="tool-logo icon-bing">
+      <img src="{{ url_for('static', filename='images/ثالثًا أدوات إنتاج الصوت/أداة  Balabolka.png') }}">
+    </div>
+    <div class="tool-name">أداة Balabolka</div>
+    <div class="tool-desc"> رنامج مجاني يحول النصوص إلى صـــــــوت ويدعم صيغ متعددة، ويتميز بسهـــــولة الاستـخــدام.</div>
+    <a href="http://www.cross-plus-a.com/balabolka.htm" target="_blank" class="tool-btn">الانتقال الى الاداة</a>
+  </div>
+
+  <!-- Leonardo AI -->
+  <div class="tool-card">
+    <div class="tool-logo icon-leonardo">
+  <img src="{{ url_for('static', filename='images/ثالثًا أدوات إنتاج الصوت/أداة  Panopreter Basic.png') }}">
+    </div>
+    <div class="tool-name">أداة Panopreter Basic</div>
+    <div class="tool-desc">أداة بسيطة لتحويل النصوص إلى صوت، مناسبة للمبتدئين في إنشاء المحتـــوى الصـــوتي.</div>
+    <a href="https://www.panopreter.com/" target="_blank" class="tool-btn">الانتقال الى الاداة</a>
+  </div>
+
+  <!-- Canva -->
+  <div class="tool-card">
+    <div class="tool-logo icon-canva">
+        <img src="{{ url_for('static', filename='images/ثالثًا أدوات إنتاج الصوت/أداة ElevenLabs.png') }}">
+    </div>
+    <div class="tool-name">أداة ElevenLabs</div>
+    <div class="tool-desc"> منصة متقدمة لإنشــاء أصــوات بشريـــة واقعية باستــخدام الذكاء الاصطناعــي، مناسبة للفيديوهات الاحترافـية.</div>
+    <a href="https://elevenlabs.io/" target="_blank" class="tool-btn">الانتقال الى الاداة</a>
+  </div>
+
+  <!-- Dream by WOMBO -->
+  <div class="tool-card">
+    <div class="tool-logo icon-wombo">
+      <img src="{{ url_for('static', filename='images/ثالثًا أدوات إنتاج الصوت/أداة PlayHT.png') }}">
+    </div>
+    <div class="tool-name">أداة PlayHT</div>
+    <div class="tool-desc">أداة لتحويل النصوص إلى صــوت طبيعـــي، تُستخدم في إنتـــاج التعلـــيقات الصوتـــية التعليمــــية.
+</div>
+    <a href="https://playhtai.com/" target="_blank" class="tool-btn">الانتقال الى الاداة</a>
+  </div>
+
+  <!-- Playground AI -->
+  <div class="tool-card">
+    <div class="tool-logo icon-playground">
+     <img src="{{ url_for('static', filename='images/ثالثًا أدوات إنتاج الصوت/أداة TTSMaker.png') }}">
+    </div>
+    <div class="tool-name">أداة TTSMaker</div>
+    <div class="tool-desc">أداة مجانية لتحويل النصــــوص إلى صـــــوت تدعم عدة لغات منها العربية، وتُستخـدم بسهولة دون تسجيـــل.</div>
+    <a href="https://ttsmaker.com/" target="_blank" class="tool-btn">الانتقال الى الاداة</a>
+  </div>
+
+</div>
+</section>
+<div class="blue-tape-un"></div>
+<!-- <div class="blue-tape">""</div> -->
+<!-- SECTION TITLE -->
+<div class="section-title-four">
+  <img src="{{ url_for('static', filename='images/رابعًا أدوات إنتاج الأفكار والمحتوى/رابعًا أدوات إنتاج الأفكار والمحتوى.png') }}">
+</div>
+
+<!-- TOOLS GRID -->
+ <section class="crads-con">
+<div class="tools-grid">
+
+  <!-- Ideogram -->
+  <div class="tool-card">
+    <div class="tool-logo icon-ideogram">
+      <img src="{{ url_for('static', filename='images/رابعًا أدوات إنتاج الأفكار والمحتوى/أداة  ChatGPT.png') }}">
+      <div class="tool-name">أداة  ChatGPT</div>
+    </div>
+    <div class="tool-desc">نموذج ذكــاء اصطناعـــي يُستخـــدم فــــي توليد الأفكار وكتابــة المحتـــوى والإجابـــة عن الأسئلة بطريقة ذكيـة.
+</div>
+    <a href="https://chatgpt.com/" target="_blank" class="tool-btn">الانتقال الى الاداة</a>
+  </div>
+
+  <!-- Bing Image Creator -->
+  <div class="tool-card">
+    <div class="tool-logo icon-bing">
+      <img src="{{ url_for('static', filename='images/رابعًا أدوات إنتاج الأفكار والمحتوى/أداة  Google Gemini.png') }}">
+    </div>
+    <div class="tool-name">أداة Google Gemini</div>
+    <div class="tool-desc"> مساعد ذكي مـــن جوجـــل يســــاعد فــــي تــــوليــــد الأفـــــكــــار وكــــتابــــــة النصـــــوص 
+وتحليل المعلومــات.</div>
+    <a href="https://gemini.google.com/" target="_blank" class="tool-btn">الانتقال الى الاداة</a>
+  </div>
+
+  <!-- Leonardo AI -->
+  <div class="tool-card">
+    <div class="tool-logo icon-leonardo">
+      <img src="{{ url_for('static', filename='images/رابعًا أدوات إنتاج الأفكار والمحتوى/أداة  Microsoft Copilot.png') }}">
+    </div>
+    <div class="tool-name">أداة Microsoft Copilot</div>
+    <div class="tool-desc">أداة ذكاء اصطناعي مدمجة مع خدمــات مايكروســـوفت، تُستخـــدم فــي كتابـــة المحتوى وإنشاء العروض التقديمية.</div>
+    <a href="https://copilot.microsoft.com/" target="_blank" class="tool-btn">الانتقال الى الاداة</a>
+  </div>
+
+  <!-- Canva -->
+  <div class="tool-card">
+    <div class="tool-logo icon-canva">
+        <img src="{{ url_for('static', filename='images/رابعًا أدوات إنتاج الأفكار والمحتوى/أداة Rytr.png') }}">
+    </div>
+    <div class="tool-name">أداة Rytr</div>
+    <div class="tool-desc">أداة ذكاء اصطناعي تُستخدم في تــوليــد الأفـــكــــار وكتـــابــــة المـــحتـــوى وتتميــــــز بسهولـــة الاســـتخـــدام وتوفيـــر قوالــــب جاهزة لأنواع مختلفة من الكتابة. </div>
+    <a href="https://rytr.me/" target="_blank" class="tool-btn">الانتقال الى الاداة</a>
+  </div>
+
+  <!-- Dream by WOMBO -->
+  <div class="tool-card">
+    <div class="tool-logo icon-wombo">
+      <img src="{{ url_for('static', filename='images/رابعًا أدوات إنتاج الأفكار والمحتوى/أداة Notion AI.png') }}">
+    </div>
+    <div class="tool-name">أداة Notion AI</div>
+    <div class="tool-desc">أداة تساعد في كتابة وتنظيـم المحتــوى داخـــــــل مـــــــــنصـــــــة  Notion  بـــشــــــــكل 
+ذكي ومنظــم.</div>
+    <a href="https://www.notion.so/product/ai" target="_blank" class="tool-btn">الانتقال الى الاداة</a>
+  </div>
+
+  <!-- Playground AI -->
+  <div class="tool-card">
+    <div class="tool-logo icon-playground">
+     <img src="{{ url_for('static', filename='images/رابعًا أدوات إنتاج الأفكار والمحتوى/أداة Copy.ai.png') }}">
+    </div>
+    <div class="tool-name">أداة Copy.ai</div>
+    <div class="tool-desc">منصة لإنشاء نصوص تسويقية وتعليمية بسرعة باستخدام الذكاء الاصطناعي.</div>
+    <a href="https://www.copy.ai/" target="_blank" class="tool-btn">الانتقال الى الاداة</a>
+  </div>
+
+</div>
+</section>
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">
+    <img src="{{ url_for('static', filename='images/اللوجو ابيض.png') }}">
+  </div>
+
+  <div class="footer-partners">
+    <div class="partner-badge">
+      <div class="badge-icon"><img src="{{ url_for('static', filename='images/الجامعة.png') }}" alt="جامعة أسوان"/></div>
+      جامعة أسوان
+    </div>
+    <div class="partner-badge">
+      <div class="badge-icon"><img src="{{ url_for('static', filename='images/الكلية.png') }}" alt="جامعة أسوان"/></div>
+      كلية التربية النوعية
+    </div>
+    <div class="partner-badge">
+      <div class="badge-icon"><img src="{{ url_for('static', filename='images/لوجو القسم.png') }}" alt="جامعة أسوان"/></div>
+      قسم تكنولوجيا التعليم
+    </div>
+  </div>
+</footer>
+<script>
+  function toggleMenu() {
+    const menu = document.getElementById('mobileMenu');
+    const hamburger = document.getElementById('hamburger');
+    menu.classList.toggle('open');
+    menu.style.display = menu.classList.contains('open') ? 'flex' : 'none';
+
+    // Animate hamburger → X
+    const spans = hamburger.querySelectorAll('span');
+    if (menu.classList.contains('open')) {
+      spans[0].style.transform = 'translateY(7.5px) rotate(45deg)';
+      spans[1].style.opacity = '0';
+      spans[2].style.transform = 'translateY(-7.5px) rotate(-45deg)';
+    } else {
+      spans[0].style.transform = '';
+      spans[1].style.opacity = '1';
+      spans[2].style.transform = '';
+    }
+  }
+
+  // Close menu when clicking a link
+  document.querySelectorAll('.mobile-menu a').forEach(link => {
+    link.addEventListener('click', () => {
+      const menu = document.getElementById('mobileMenu');
+      menu.classList.remove('open');
+      menu.style.display = 'none';
+      const spans = document.querySelectorAll('.hamburger span');
+      spans.forEach(s => s.style.transform = s.style.opacity = '');
+      spans[1].style.opacity = '1';
+    });
+  });
+const track = document.getElementById('sliderTrack');
+const dots = document.querySelectorAll('.slider-dot');
+const cards = track.children;
+
+const visibleCards = 3;
+const gap = 20;
+let current = 0;
+let autoPlay;
+</script>
+
+<script>
+  const avatar = document.getElementById("avatar");
+  const overlay = document.getElementById("overlay");
+  const guideBox = document.getElementById("guideBox");
+  const guideText = document.getElementById("guideText");
+  const gifAvatar = "{{ url_for('static', filename='images/منه.gif') }}";
+  const staticAvatar = "{{ url_for('static', filename='images/avater photo/mena.jpg') }}";
+
+  const steps = [
+      { text: "أهلاً! هذا الأفاتار سيرافقك في جولة سريعة.", element: document.getElementById("avatar") },
+      { text: "هذا هو القسم الترحيبي لأدوات الذكاء الاصطناعي.", element: document.querySelector(".hero") },
+      { text: "هذا عنوان القسم الأول من الأدوات.", element: document.querySelector(".section-title") },
+      { text: "هنا تستطيع رؤية شبكة الأدوات المتاحة للتجربة.", element: document.querySelector(".tools-grid") },
+      { text: "وهنا تذييل الصفحة يحتوي على معلومات إضافية.", element: document.querySelector("footer") }
+    ];
+
+  let currentStepIdx = 0;
+
+  /* بدء الشرح */
+  if (avatar) {
+    avatar.onclick = () => {
+      currentStepIdx = 0;
+      avatar.src = gifAvatar + "?t=" + new Date().getTime();
+      showStep();
+    };
+  }
+
+  function closeTour() {
+    if (overlay) overlay.style.display = "none";
+    if (guideBox) guideBox.style.display = "none";
+    if (avatar) avatar.src = staticAvatar;
+    document.querySelectorAll(".highlight-tour").forEach(el => el.classList.remove("highlight-tour"));
+    document.querySelectorAll(".tour-visible").forEach(el => el.classList.remove("tour-visible"));
+  }
+
+  /* عرض الخطوة (يتخطى العناصر المفقودة) */
+  function showStep() {
+    while (currentStepIdx < steps.length && (!steps[currentStepIdx].element || !document.body.contains(steps[currentStepIdx].element))) {
+      currentStepIdx++;
+    }
+    const step = steps[currentStepIdx];
+    if (!step || !step.element) { closeTour(); return; }
+
+    if (overlay) overlay.style.display = "block";
+    if (guideBox) guideBox.style.display = "block";
+
+    document.querySelectorAll(".highlight-tour").forEach(el => el.classList.remove("highlight-tour"));
+    document.querySelectorAll(".tour-visible").forEach(el => el.classList.remove("tour-visible"));
+
+    step.element.classList.add("highlight-tour");
+
+    const dropdownMenu = step.element.closest && step.element.closest('.dropdown-menu');
+    if (dropdownMenu) dropdownMenu.classList.add('tour-visible');
+
+    step.element.scrollIntoView({ behavior: 'smooth', block: 'center' });
+
+            setTimeout(() => {
+        const rect = step.element.getBoundingClientRect();
+        const isFixed = guideBox && window.getComputedStyle(guideBox).position === 'fixed';
+        const guideBoxHeight = guideBox ? guideBox.offsetHeight : 0;
+        const guideBoxWidth = guideBox ? guideBox.offsetWidth : 0;
+        let topPos = rect.bottom + (isFixed ? 0 : window.scrollY) + 15;
+        let leftPos = rect.left + (isFixed ? 0 : window.scrollX);
+
+        if (isFixed) {
+          if (topPos + guideBoxHeight > window.innerHeight) {
+            topPos = rect.top - guideBoxHeight - 15;
+          }
+          if (topPos < 10) topPos = 10;
+        } else {
+          if (topPos + guideBoxHeight > document.documentElement.scrollHeight) {
+            topPos = rect.top + window.scrollY - guideBoxHeight - 15;
+          }
+        }
+        if (leftPos + guideBoxWidth > window.innerWidth) {
+          leftPos = Math.max(10, window.innerWidth - guideBoxWidth - 10);
+        }
+        if (leftPos < 10) leftPos = 10;
+
+        if (guideBox) {
+          guideBox.style.top = topPos + "px";
+          guideBox.style.left = leftPos + "px";
+          guideText.innerText = step.text;
+        }
+      }, 300);
+  }
+
+  function nextStep() {
+    currentStepIdx++;
+    if (currentStepIdx >= steps.length) { closeTour(); return; }
+    showStep();
+  }
+
+  if (overlay) overlay.onclick = closeTour;
+</script>
+</body>
+</html>

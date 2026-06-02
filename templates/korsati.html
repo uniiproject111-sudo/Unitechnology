@@ -1,0 +1,1009 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>كورساتي - UniTechnology</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="icon" type="image/png" href="{{ url_for('static', filename='images/website-logo.png') }}">
+  <link href="{{ url_for('static', filename='css/cssm.css') }}" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --blue: #1B3FD8;
+      --blue-dark: #1530B0;
+      --white: #ffffff;
+      --text-dark: #111;
+      --gray-bg: #F4F6FB;
+    }
+    html, body {
+  height: 100%;
+}
+
+    body {
+       display: flex;
+  flex-direction: column;
+      font-family: 'Cairo', sans-serif;
+      background: var(--white);
+      color: var(--text-dark);
+      direction: rtl;
+    }
+
+    /* ========== NAVBAR ========== */
+    nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 10px 16px;
+      background: #fff;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.07);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .nav-logo img {
+      width: 65px;
+      height: 55px;
+      object-fit: contain;
+    }
+
+    /* Desktop nav links - hidden on mobile */
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 32px;
+      list-style: none;
+    }
+
+    .nav-links a {
+      text-decoration: none;
+      color: var(--text-dark);
+      font-weight: 700;
+      font-size: 15px;
+      transition: color 0.2s;
+    }
+
+    .nav-links a:hover { color: var(--blue); }
+    .nav-links a.active { color: var(--blue); border-bottom: 2px solid var(--blue); padding-bottom: 2px; }
+
+    .nav-actions {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .btn-register {
+      background: var(--blue);
+      color: #fff;
+      border: none;
+      padding: 8px 20px;
+      border-radius: 25px;
+      font-family: 'Cairo', sans-serif;
+      font-size: 14px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+    .btn-register:hover { background: var(--blue-dark); }
+
+    /* Hamburger menu button */
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      cursor: pointer;
+      padding: 6px;
+      border-radius: 6px;
+      background: #f0f0f0;
+    }
+    .hamburger span {
+      width: 22px;
+      height: 2.5px;
+      background: #444;
+      border-radius: 2px;
+      display: block;
+      transition: all 0.3s;
+    }
+
+
+    .dropdown {
+    position: relative;
+}
+
+.dropdown-menu {
+    position: absolute;
+    top: 100%;
+    right: 0;
+    background: #fff;
+    list-style: none;
+    padding: 10px 0;
+    margin: 0;
+    width: 180px;
+    border-radius: 10px;
+    box-shadow: 0 6px 20px rgba(0,0,0,0.08);
+    
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(10px);
+    transition: 0.3s;
+}
+
+.dropdown-menu li {
+    padding: 8px 16px;
+}
+
+.dropdown-menu a {
+    color: #333;
+    font-weight: 600;
+    display: block;
+}
+
+.dropdown-menu a:hover {
+    color: var(--blue);
+}
+
+/* Show on hover */
+.dropdown:hover .dropdown-menu {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
+    .mobile-menu {
+  display: none;
+  flex-direction: column;
+  background: #fff;
+  position: absolute;
+  top: 74px;
+  right: 0;
+  width: 100%;
+  z-index: 999;
+  box-shadow: 0 10px 20px rgba(0,0,0,0.08);
+}
+
+.mobile-menu.open {
+  display: flex;
+}
+
+.mobile-menu a {
+  padding: 14px 20px;
+  text-decoration: none;
+  color: #111;
+  border-bottom: 1px solid #eee;
+  font-weight: 700;
+}
+
+.mobile-menu a:hover {
+  background: #f5f7ff;
+  color: #1B3FD8;
+}
+
+    /* ========== HERO BANNER ========== */
+    .hero-banner {
+      padding: 20px 16px;
+      text-align: center;
+    }
+    .hero-banner img {
+      width: 100%;
+      max-width: 500px;
+      height: auto;
+      object-fit: contain;
+    }
+
+    /* ========== COURSES LIST ========== */
+    .courses-section {
+      padding: 0;
+    }
+
+    .course-row {
+      display: flex;
+      align-items: stretch;
+      border-bottom: 3px solid #fff;
+      min-height: 130px;
+    }
+
+    .course-thumb {
+      flex: 0 0 120px;
+      position: relative;
+      overflow: hidden;
+      background: #f8f9fa;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 15px;
+    }
+
+    .course-thumb img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      display: block;
+    }
+
+    /* Placeholder thumb */
+    .thumb-placeholder {
+      width: 100%;
+      height: 100%;
+      min-height: 130px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .thumb-placeholder.red {
+      background: linear-gradient(135deg, #c0392b 0%, #e74c3c 50%, #8e1a0e 100%);
+    }
+
+    .thumb-placeholder.blue-grad {
+      background: linear-gradient(135deg, #0a2799 0%, #1B3FD8 50%, #2196F3 100%);
+    }
+
+    .thumb-label {
+      font-size: 11px;
+      font-weight: 700;
+      color: rgba(255,255,255,0.9);
+      font-family: 'Cairo', sans-serif;
+      text-align: center;
+      line-height: 1.4;
+      z-index: 2;
+      position: relative;
+      padding: 0 12px;
+    }
+
+    .thumb-badge {
+      background: rgba(255,255,255,0.15);
+      border: 1px solid rgba(255,255,255,0.3);
+      color: #fff;
+      font-size: 10px;
+      font-weight: 800;
+      padding: 3px 8px;
+      border-radius: 3px;
+      margin: 6px 0;
+      font-family: 'Cairo', sans-serif;
+      z-index: 2;
+      position: relative;
+      text-align: center;
+    }
+
+    .thumb-num {
+      color: #fff;
+      font-size: 18px;
+      font-weight: 900;
+      font-family: 'Cairo', sans-serif;
+      z-index: 2;
+      position: relative;
+    }
+
+    /* Decorative blobs */
+    .blob {
+      position: absolute;
+      border-radius: 50%;
+      opacity: 0.25;
+    }
+    .blob-1 { width: 80px; height: 80px; background: #fff; top: -20px; right: -20px; }
+    .blob-2 { width: 60px; height: 60px; background: #fff; bottom: -15px; left: -15px; }
+    .blob-3 { width: 40px; height: 40px; background: rgba(255,255,255,0.4); top: 50%; right: 20px; transform: translateY(-50%); }
+
+    .course-info {
+      flex: 1;
+      background: var(--blue);
+      padding: 20px 20px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 12px;
+    }
+
+    .course-title {
+      font-size: 18px;
+      font-weight: 700;
+      color: #fff;
+      font-family: 'Cairo', sans-serif;
+      line-height: 1.4;
+    }
+
+    .course-actions {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .btn-continue {
+      background: #fff;
+      color: var(--blue);
+      border: none;
+      padding: 9px 24px;
+      border-radius: 8px;
+      font-family: 'Cairo', sans-serif;
+      font-size: 14px;
+      font-weight: 800;
+      cursor: pointer;
+      transition: background 0.2s, transform 0.15s;
+      white-space: nowrap;
+      text-decoration: none;
+      display: inline-block;
+    }
+    .btn-continue:hover {
+      background: #e8eeff;
+      transform: translateY(-1px);
+    }
+
+    /* Shown when course is 100% complete */
+    .completed-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: #27ae60;
+      color: #fff;
+      font-family: 'Cairo', sans-serif;
+      font-size: 14px;
+      font-weight: 800;
+      padding: 10px 20px;
+      border-radius: 8px;
+      white-space: nowrap;
+    }
+
+    .progress-wrap {
+      flex: 1;
+      max-width: 200px;
+      min-width: 0;
+    }
+
+    .progress-bar-bg {
+      background: rgba(255,255,255,0.2);
+      border-radius: 20px;
+      height: 10px;
+      overflow: hidden;
+      margin-bottom: 4px;
+    }
+
+    .progress-bar-fill {
+      height: 100%;
+      width: 0%;
+      border-radius: 20px;
+      background: #fff;
+      transition: width 0.8s ease;
+    }
+
+    .progress-text {
+      font-size: 11px;
+      color: rgba(255,255,255,0.7);
+      font-family: 'Cairo', sans-serif;
+      text-align: left;
+    }
+
+    /* Progress details: videos count cards */
+    .progress-details {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .detail-card {
+      background: rgba(255,255,255,0.15);
+      border: 1px solid rgba(255,255,255,0.25);
+      border-radius: 10px;
+      padding: 8px 14px;
+      color: #fff;
+      font-family: 'Cairo', sans-serif;
+      font-size: 12px;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .detail-card strong {
+      font-size: 16px;
+      font-weight: 900;
+    }
+
+    /* Green tint when course is completed */
+    .btn-continue.completed {
+      background: #27ae60;
+      color: #fff;
+    }
+    .btn-continue.completed:hover {
+      background: #219150;
+    }
+
+    /* ========== FOOTER ========== */
+    footer {
+    background: var(--blue);
+    padding: 28px 48px;
+    text-align: center;
+  }
+ 
+  .footer-logo { margin-bottom: 20px; }
+ 
+  .footer-logo img {
+    height: 60px;
+    width: auto;
+    object-fit: contain;
+  }
+ 
+  .footer-logo-fallback { display: inline-block; margin-bottom: 6px; }
+  .footer-logo-fallback svg { width: 52px; height: 52px; }
+ 
+  .footer-logo-text {
+    color: #fff;
+    font-size: 13px;
+    font-weight: 700;
+    font-family: 'Cairo', sans-serif;
+  }
+ 
+  .footer-partners {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 50px;
+    flex-wrap: wrap;
+  }
+ 
+  .partner-badge {
+    background: rgba(255,255,255,0.12);
+    border: 1.5px solid rgba(255,255,255,0.25);
+    border-radius: 28px;
+    padding: 8px 18px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: #fff;
+    font-size: 13px;
+    font-weight: 700;
+    font-family: 'Cairo', sans-serif;
+  }
+ 
+  .badge-icon {
+    width: 30px;
+    height: 30px;
+    background: rgba(255,255,255,0.2);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    flex-shrink: 0;
+  }
+ 
+  .badge-icon img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+  }
+ 
+  .badge-icon-text { font-size: 14px; color: #fff; }
+ 
+    /* ========================================
+       MOBILE RESPONSIVE STYLES
+       ======================================== */
+
+    @media (max-width: 768px) {
+
+     /* --- NAVBAR --- */
+    nav { padding: 10px 14px; }
+ 
+    .nav-logo img { width: 60px; height: 52px; }
+ 
+    .nav-links { display: none; }
+    .nav-dots { display: none; }
+ 
+    .hamburger { display: flex; }
+ 
+    .btn-register { padding: 7px 16px; font-size: 13px; }
+ 
+
+      /* Hero */
+      .hero-banner {
+        padding: 14px 12px;
+      }
+
+      /* Course rows: stack vertically */
+      .course-row {
+        flex-direction: column;
+        min-height: unset;
+        border-bottom: 4px solid #fff;
+      }
+
+      .course-thumb {
+        flex: none;
+        width: 100%;
+        height: 120px;
+      }
+
+      .thumb-placeholder {
+        min-height: 140px;
+      }
+
+      .thumb-label {
+        font-size: 12px;
+      }
+
+      .thumb-badge {
+        font-size: 9px;
+        padding: 3px 8px;
+      }
+
+      /* Course info */
+      .course-info {
+        padding: 16px 16px;
+        gap: 12px;
+      }
+
+      .course-title {
+        font-size: 16px;
+        line-height: 1.5;
+      }
+
+      .course-actions {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+      }
+
+      .btn-continue {
+        width: 100%;
+        text-align: center;
+        padding: 11px 20px;
+        font-size: 15px;
+      }
+
+      .progress-wrap {
+        width: 100%;
+        max-width: 100%;
+      }
+
+      .progress-bar-bg {
+        height: 12px;
+      }
+
+      .progress-text {
+        font-size: 12px;
+      }
+
+      /* Footer */
+      footer {
+        padding: 20px 14px;
+      }
+
+      .footer-logo img {
+        height: 48px;
+      }
+
+      .footer-partners {
+        gap: 10px;
+        flex-direction: column;
+        align-items: center;
+      }
+
+      .partner-badge {
+        font-size: 13px;
+        padding: 8px 16px;
+        width: 100%;
+        max-width: 240px;
+        justify-content: center;
+      }
+    }
+
+    /* Very small screens */
+    @media (max-width: 380px) {
+      .course-title {
+        font-size: 14px;
+      }
+      .btn-register {
+        padding: 6px 12px;
+        font-size: 12px;
+      }
+    }
+  /* ================================================
+     TOUR GUIDE STYLES
+     ================================================ */
+ #avatar {
+   position: fixed;
+   right: 30px;
+   bottom: 30px;
+   width: 85px;
+   height: 85px;
+   opacity: 0.9;
+   border-radius: 50%;
+   cursor: pointer;
+   transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+   z-index: 3000;
+   box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+   border: 4px solid #fff;
+   background: #fff;
+   object-fit: cover;
+   object-position: center;
+ }
+
+ #avatar:hover {
+   opacity: 1;
+   transform: scale(1.1) rotate(5deg);
+   box-shadow: 0 15px 35px rgba(27, 63, 216, 0.4);
+ }
+
+ #overlay {
+   position: fixed;
+   inset: 0;
+   background: rgba(0, 0, 0, 0.7);
+   display: none;
+   z-index: 2900;
+ }
+
+ .highlight-tour {
+   position: relative !important;
+   z-index: 2901 !important;
+    cursor: default !important;
+   box-shadow: 0 0 0 8px rgba(255, 255, 255, 0.4), 0 0 30px rgba(255, 255, 255, 0.6) !important;
+   border-radius: 12px !important;
+
+   transition: all 0.3s ease;
+ }
+ @keyframes fadeInSlide {
+   from {
+     opacity: 0;
+     transform: translateY(10px);
+   }
+
+   to {
+     opacity: 1;
+     transform: translateY(0);
+   }
+ }
+
+ #guideBox p {
+   margin: 0 0 18px;
+   font-size: 16px;
+   line-height: 1.6;
+   font-weight: 600;
+   color: #333;
+ }
+
+ #guideBox button {
+   padding: 10px 24px;
+   border: none;
+   background: var(--blue);
+   color: white;
+   border-radius: 12px;
+   cursor: pointer;
+   font-family: 'Cairo', sans-serif;
+   font-weight: 700;
+   font-size: 14px;
+   width: 100%;
+   transition: background 0.2s;
+ }
+
+ #guideBox button:hover {
+   background: var(--blue-dark);
+ }
+
+ .highlight-tour {
+   animation: tourPulse 1.5s infinite;
+ }
+
+ /* Force dropdown visibility during tour */
+ .dropdown-menu.tour-visible {
+   opacity: 1 !important;
+   visibility: visible !important;
+   transform: translateY(0) !important;
+   display: block !important;
+ }
+
+ @keyframes tourPulse {
+   0% {
+     transform: scale(1);
+   }
+
+   50% {
+     transform: scale(1.02);
+   }
+
+   100% {
+     transform: scale(1);
+   }
+ }
+
+ @media (max-width: 768px) {
+   #avatar {
+     width: 70px;
+     height: 70px;
+     right: 20px;
+     bottom: 20px;
+   }
+
+   #guideBox {
+     width: 240px;
+     padding: 18px;
+   }
+ }
+  </style>
+</head>
+<body>
+
+<!-- NAVBAR -->
+{% include 'navbar.html' %}
+
+<!-- avatar -->
+<img id="avatar" src="{{ url_for('static', filename='images/avater photo/sharef.jpg') }}">
+
+<!-- overlay -->
+<div id="overlay"></div>
+
+<!-- guide box -->
+<div id="guideBox">
+    <p id="guideText"></p>
+    <button onclick="nextStep()">التالي</button>
+</div>
+
+<!-- HERO BANNER -->
+<div class="hero-banner">
+  <img src="{{ url_for('static', filename='images/نسخة من إضافة عنوان (4).png') }}" alt="كورساتي">
+</div>
+
+<!-- COURSES SECTION -->
+<section class="courses-section">
+  {% if enrolled_courses and enrolled_courses|length > 0 %}
+    {% for course in enrolled_courses %}
+      <div class="course-row">
+        <div class="course-info">
+          <div class="course-title">{{ course.title }}</div>
+
+          <!-- Progress bar -->
+          <div class="progress-wrap" style="max-width: 100%;">
+            <div class="progress-bar-bg">
+              <div class="progress-bar-fill" style="width: {{ course.progress['progress_percent'] }}%;"></div>
+            </div>
+            <div class="progress-text">
+              {{ course.progress['completed_videos'] }} فيديو من {{ course.total_videos }}
+              &nbsp;·&nbsp; {{ course.progress['progress_percent'] }}%
+            </div>
+          </div>
+
+          <!-- Actions -->
+          <div class="course-actions">
+            {% if course.progress['is_completed'] %}
+              <!-- Course finished: show badge instead of button -->
+              <div class="completed-badge"> تم الانتهاء من الكورس</div>
+            {% else %}
+              <a href="{{ course.page_url }}" class="btn-continue">استكمل الكورس</a>
+            {% endif %}
+          </div>
+        </div>
+
+        <div class="course-thumb">
+          <img src="{{ course.image_url or url_for('static', filename='images/لوجو القسم.png') }}" alt="{{ course.title }}" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+          <div class="thumb-placeholder blue-grad" style="display:none;">
+            <div class="blob blob-1"></div>
+            <div class="blob blob-2"></div>
+            <div class="blob blob-3"></div>
+            <div class="thumb-label">{{ course.description or 'محتوى الكورس' }}</div>
+            <div class="thumb-badge">{{ course.title }}</div>
+          </div>
+        </div>
+      </div>
+    {% endfor %}
+  {% else %}
+    <div style="
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 64px 24px;
+      text-align: center;
+      background: #f8fbff;
+      min-height: 340px;
+    ">
+      <!-- Icon -->
+      <div style="
+        width: 90px; height: 90px;
+        background: #e7f0ff;
+        border-radius: 50%;
+        display: flex; align-items: center; justify-content: center;
+        margin-bottom: 24px;
+        font-size: 40px;
+      "><img src="{{ url_for('static', filename='images/books.png') }}"></div>
+
+      <h2 style="
+        font-size: 1.6rem;
+        font-weight: 800;
+        color: #111;
+        margin-bottom: 12px;
+        font-family: 'Cairo', sans-serif;
+      ">لم تشاهد أي كورس بعد!</h2>
+
+      <p style="
+        color: #555;
+        font-size: 15px;
+        font-weight: 600;
+        font-family: 'Cairo', sans-serif;
+        margin-bottom: 32px;
+        max-width: 420px;
+        line-height: 1.8;
+      ">
+        ابدأ رحلتك التعليمية الآن! اختر كورسًا من صفحة الكورسات، شاهد الفيديوهات، وتتبع تقدمك هنا.
+      </p>
+
+      <a href="{{ url_for('page', page_name='courses') }}" style="
+        background: var(--blue);
+        color: #fff;
+        text-decoration: none;
+        padding: 14px 36px;
+        border-radius: 10px;
+        font-family: 'Cairo', sans-serif;
+        font-size: 15px;
+        font-weight: 800;
+        transition: background 0.2s, transform 0.15s;
+        display: inline-block;
+      "
+      onmouseover="this.style.background='var(--blue-dark)'; this.style.transform='translateY(-2px)';"
+      onmouseout="this.style.background='var(--blue)'; this.style.transform='';">
+       اذهب إلى صفحة الكورسات
+      </a>
+    </div>
+  {% endif %}
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">
+    <img src="{{ url_for('static', filename='images/اللوجو ابيض.png') }}" alt="logo">
+  </div>
+
+  <div class="footer-partners">
+    <div class="partner-badge">
+      <div class="badge-icon">
+        <img src="{{ url_for('static', filename='images/الجامعة.png') }}">
+      </div>
+      جامعة أسوان
+    </div>
+    <div class="partner-badge">
+      <div class="badge-icon">
+        <img src="{{ url_for('static', filename='images/الكلية.png') }}">
+      </div>
+      كلية التربية النوعية
+    </div>
+    <div class="partner-badge">
+      <div class="badge-icon">
+        <img src="{{ url_for('static', filename='images/لوجو القسم.png') }}">
+      </div>
+      قسم تكنولوجيا التعليم
+    </div>
+  </div>
+</footer>
+
+<script>
+  function toggleMenu() {
+    const menu = document.getElementById('mobileMenu');
+    const hamburger = document.getElementById('hamburger');
+    menu.classList.toggle('open');
+    menu.style.display = menu.classList.contains('open') ? 'flex' : 'none';
+
+    // Animate hamburger → X
+    const spans = hamburger.querySelectorAll('span');
+    if (menu.classList.contains('open')) {
+      spans[0].style.transform = 'translateY(7.5px) rotate(45deg)';
+      spans[1].style.opacity = '0';
+      spans[2].style.transform = 'translateY(-7.5px) rotate(-45deg)';
+    } else {
+      spans[0].style.transform = '';
+      spans[1].style.opacity = '1';
+      spans[2].style.transform = '';
+    }
+  }
+
+  // Close menu when clicking a link
+  document.querySelectorAll('.mobile-menu a').forEach(link => {
+    link.addEventListener('click', () => {
+      const menu = document.getElementById('mobileMenu');
+      menu.classList.remove('open');
+      menu.style.display = 'none';
+      const spans = document.querySelectorAll('.hamburger span');
+      spans.forEach(s => s.style.transform = s.style.opacity = '');
+      spans[1].style.opacity = '1';
+    });
+  });
+</script>
+
+<script>
+  const avatar = document.getElementById("avatar");
+  const overlay = document.getElementById("overlay");
+  const guideBox = document.getElementById("guideBox");
+  const guideText = document.getElementById("guideText");
+  const gifAvatar = "{{ url_for('static', filename='images/شريف.gif') }}";
+  const staticAvatar = "{{ url_for('static', filename='images/avater photo/sharef.jpg') }}";
+
+  const steps = [
+      { text: "أهلاً! هذا الأفاتار سيرافقك في جولة سريعة.", element: document.getElementById("avatar") },
+      { text: "هذا هو القسم الترحيبي للصفحة.", element: document.querySelector(".hero-banner") },
+      { text: "هنا تجد الكورسات المتابعة وتقدمك الدراسي.", element: document.querySelector(".courses-section") },
+      { text: "هذا القسم يساعدك على الرجوع إلى صفحة الكورسات ومتابعة الفيديوهات.", element: document.querySelector(".course-actions") },
+      { text: "وهنا تذييل الصفحة حيث تجد معلومات الجامعة والدعم.", element: document.querySelector("footer") }
+    ];
+
+  let currentStepIdx = 0;
+
+  /* بدء الشرح */
+  if (avatar) {
+    avatar.onclick = () => {
+      currentStepIdx = 0;
+      avatar.src = gifAvatar + "?t=" + new Date().getTime();
+      showStep();
+    };
+  }
+
+  function closeTour() {
+    if (overlay) overlay.style.display = "none";
+    if (guideBox) guideBox.style.display = "none";
+    if (avatar) avatar.src = staticAvatar;
+    document.querySelectorAll(".highlight-tour").forEach(el => el.classList.remove("highlight-tour"));
+    document.querySelectorAll(".tour-visible").forEach(el => el.classList.remove("tour-visible"));
+  }
+
+  /* عرض الخطوة (يتخطى العناصر المفقودة) */
+  function showStep() {
+    while (currentStepIdx < steps.length && (!steps[currentStepIdx].element || !document.body.contains(steps[currentStepIdx].element))) {
+      currentStepIdx++;
+    }
+    const step = steps[currentStepIdx];
+    if (!step || !step.element) { closeTour(); return; }
+
+    if (overlay) overlay.style.display = "block";
+    if (guideBox) guideBox.style.display = "block";
+
+    document.querySelectorAll(".highlight-tour").forEach(el => el.classList.remove("highlight-tour"));
+    document.querySelectorAll(".tour-visible").forEach(el => el.classList.remove("tour-visible"));
+
+    step.element.classList.add("highlight-tour");
+
+    const dropdownMenu = step.element.closest && step.element.closest('.dropdown-menu');
+    if (dropdownMenu) dropdownMenu.classList.add('tour-visible');
+
+    step.element.scrollIntoView({ behavior: 'smooth', block: 'center' });
+
+            setTimeout(() => {
+        const rect = step.element.getBoundingClientRect();
+        const isFixed = guideBox && window.getComputedStyle(guideBox).position === 'fixed';
+        const guideBoxHeight = guideBox ? guideBox.offsetHeight : 0;
+        const guideBoxWidth = guideBox ? guideBox.offsetWidth : 0;
+        let topPos = rect.bottom + (isFixed ? 0 : window.scrollY) + 15;
+        let leftPos = rect.left + (isFixed ? 0 : window.scrollX);
+
+        if (isFixed) {
+          if (topPos + guideBoxHeight > window.innerHeight) {
+            topPos = rect.top - guideBoxHeight - 15;
+          }
+          if (topPos < 10) topPos = 10;
+        } else {
+          if (topPos + guideBoxHeight > document.documentElement.scrollHeight) {
+            topPos = rect.top + window.scrollY - guideBoxHeight - 15;
+          }
+        }
+        if (leftPos + guideBoxWidth > window.innerWidth) {
+          leftPos = Math.max(10, window.innerWidth - guideBoxWidth - 10);
+        }
+        if (leftPos < 10) leftPos = 10;
+
+        if (guideBox) {
+          guideBox.style.top = topPos + "px";
+          guideBox.style.left = leftPos + "px";
+          guideText.innerText = step.text;
+        }
+      }, 300);
+  }
+
+  function nextStep() {
+    currentStepIdx++;
+    if (currentStepIdx >= steps.length) { closeTour(); return; }
+    showStep();
+  }
+
+  if (overlay) overlay.onclick = closeTour;
+</script>
+
+</body>
+</html>
